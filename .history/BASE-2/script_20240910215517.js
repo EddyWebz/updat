@@ -204,72 +204,27 @@ function resetHistory() {
         return img;
     }
 
-    // function showFullscreenImage(image) {
-    //     const fullscreenImg = document.createElement('img');
-    //     fullscreenImg.src = image;
-    //     fullscreenImg.className = 'fullscreen-img';
-    //     fullscreenImg.addEventListener('click', () => {
-    //         document.body.removeChild(fullscreenImg);
-    //     });
-    //     document.body.appendChild(fullscreenImg);
-    // }
-    // ---- MODIFICAR FUNCIÓN DE IMÁGENES EN PANTALLA COMPLETA ----
-let currentIndex = 0; // Índice actual de la imagen mostrada
+    function showFullscreenImage(image) {
+        const fullscreenImg = document.createElement('img');
+        fullscreenImg.src = image;
+        fullscreenImg.className = 'fullscreen-img';
+        fullscreenImg.addEventListener('click', () => {
+            document.body.removeChild(fullscreenImg);
+        });
+        document.body.appendChild(fullscreenImg);
+    }
 
-function showFullscreenImages(images, index = 0) {
-    currentIndex = index;
-    const fullscreenContainer = document.createElement('div');
-    fullscreenContainer.className = 'fullscreen-container';
-
-    const fullscreenImg = document.createElement('img');
-    fullscreenImg.src = images[currentIndex];
-    fullscreenImg.className = 'fullscreen-img';
-    
-    // Botón para cerrar
-    fullscreenImg.addEventListener('click', () => {
-        document.body.removeChild(fullscreenContainer);
-    });
-
-    fullscreenContainer.appendChild(fullscreenImg);
-    
-    // Botón Anterior
-    const prevButton = document.createElement('button');
-    prevButton.textContent = '<';
-    prevButton.className = 'fullscreen-prev';
-    prevButton.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        fullscreenImg.src = images[currentIndex];
-    });
-    fullscreenContainer.appendChild(prevButton);
-
-    // Botón Siguiente
-    const nextButton = document.createElement('button');
-    nextButton.textContent = '>';
-    nextButton.className = 'fullscreen-next';
-    nextButton.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % images.length;
-        fullscreenImg.src = images[currentIndex];
-    });
-    fullscreenContainer.appendChild(nextButton);
-
-    document.body.appendChild(fullscreenContainer);
-}
-
-//FUNCION PANTALLA COMPLETA
     function handleVehicleImages(vehicle, card) {
         if (vehicle.images && Array.isArray(vehicle.images)) {
-            const imageElements = vehicle.images.slice(0, 4); // Limitar a un máximo de 4 imágenes
-            imageElements.forEach((image, index) => {
+            vehicle.images.forEach(image => {
                 const img = createImageElement(image);
-                img.addEventListener('click', () => showFullscreenImages(imageElements, index));
                 card.appendChild(img);
             });
         } else if (vehicle.images && typeof vehicle.images === 'string') {
             try {
-                const imagesArray = JSON.parse(vehicle.images).slice(0, 4); // Limitar a 4 imágenes
-                imagesArray.forEach((image, index) => {
+                const imagesArray = JSON.parse(vehicle.images);
+                imagesArray.forEach(image => {
                     const img = createImageElement(image);
-                    img.addEventListener('click', () => showFullscreenImages(imagesArray, index));
                     card.appendChild(img);
                 });
             } catch (error) {
@@ -277,7 +232,6 @@ function showFullscreenImages(images, index = 0) {
             }
         }
     }
-    
     //CAMPO DE FECHA PERZONALIZADA
     dateOption.addEventListener('change', () => {
         if (dateOption.value === 'manual') {

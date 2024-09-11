@@ -204,15 +204,15 @@ function resetHistory() {
         return img;
     }
 
-    // function showFullscreenImage(image) {
-    //     const fullscreenImg = document.createElement('img');
-    //     fullscreenImg.src = image;
-    //     fullscreenImg.className = 'fullscreen-img';
-    //     fullscreenImg.addEventListener('click', () => {
-    //         document.body.removeChild(fullscreenImg);
-    //     });
-    //     document.body.appendChild(fullscreenImg);
-    // }
+    function showFullscreenImage(image) {
+        const fullscreenImg = document.createElement('img');
+        fullscreenImg.src = image;
+        fullscreenImg.className = 'fullscreen-img';
+        fullscreenImg.addEventListener('click', () => {
+            document.body.removeChild(fullscreenImg);
+        });
+        document.body.appendChild(fullscreenImg);
+    }
     // ---- MODIFICAR FUNCIÓN DE IMÁGENES EN PANTALLA COMPLETA ----
 let currentIndex = 0; // Índice actual de la imagen mostrada
 
