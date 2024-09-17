@@ -1,0 +1,190 @@
+/* Botón Historial de Registros */
+#botonhistor {
+    background-color: #1b1b1b;  /* Fondo oscuro */
+    color: #b0b0b0;  /* Texto gris claro */
+    border: 2px solid #ff8c00;  /* Borde naranja */
+    padding: 12px 20px;  /* Espaciado interno */
+    border-radius: 6px;  /* Bordes redondeados */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Sombra */
+    margin-bottom: 5px;  /* Añadir separación abajo del botón */
+    transition: background-color 0.4s, color 0.4s, transform 0.4s ease-in-out, box-shadow 0.4s;
+}
+
+#botonhistor:hover {
+    background-color: #ff8c00;  /* Fondo naranja en hover */
+    color: #ffffff;  /* Texto blanco en hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);  /* Sombra más fuerte en hover */
+    transform: scale(1.02);  /* Efecto de agrandar ligeramente */
+}
+
+/* Fondo de pantalla completa */
+.fullscreen-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:#121212; /* Fondo oscuro semi-transparente */
+    z-index: 901; /* Colocado detrás del botón y el contenido */
+    display: none; /* Oculto por defecto */
+}
+
+/* Sección del historial */
+#historySection {
+    padding: 20px;
+    background-color: #121212;
+    color: white;
+    display: none; /* Por defecto está oculto */
+    position: fixed;
+    top: 60px; /* Ajuste para no cubrir el botón */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px); /* Calculamos el espacio debajo del botón */
+    z-index: 1000; /* Para que aparezca encima del contenido */
+    overflow-y: auto; /* Permitimos el scroll en el contenido si es necesario */
+}
+
+/* Deshabilitar el scroll cuando el botón está en pantalla completa */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* Estilo del select de fechas */
+#dateOption {
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 1px solid #ff8c00;
+    padding: 10px;
+    border-radius: 6px;
+    width: 40%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+#dateOption:hover {
+    background-color: #2a2a2a;
+    border-color: #ff8c00;
+}
+
+/* Ajustes para los campos personalizados */
+#customDate {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 60%; /* El ancho general del contenedor */
+}
+
+#customDate input {
+    display: block;
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 1px solid #ff8c00;
+    padding: 8px;
+    border-radius: 6px;
+    width: 100%; /* Los inputs ocupan todo el ancho del contenedor */
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Contenedor de tarjetas del historial */
+#historyCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta el número de columnas automáticamente */
+    grid-gap: 20px; /* Espaciado entre tarjetas */
+    margin-top: 20px;
+    padding: 20px; /* Añadir padding dentro del contenedor */
+    margin-bottom: 20px; /* Espaciado inferior para no cortar la última tarjeta */
+}
+
+/* Tarjetas del historial */
+.history-card {
+    background-color: #1b1b1b;
+    border: 1px solid #2a2a2a;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    flex-direction: column; /* Asegura que el contenido interno esté bien alineado */
+}
+
+.history-card:hover {
+    background-color: #2a2a2a; /* Cambiar el color de fondo al hacer hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Aumentar la sombra */
+    transform: translateY(-5px); /* Mover ligeramente hacia arriba */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.history-card div {
+    margin-bottom: 5px;
+}
+
+/* Input de búsqueda */
+#searchInput {
+    width: calc(100% - 120px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    background-color: #121212;
+    color: #b0b0b0;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+#searchInput:hover {
+    background-color: #1f1f1f; /* Oscurecer ligeramente el fondo */
+    border-color: #ff8c00;
+}
+
+/* Botón de búsqueda */
+#searchButton {
+    width: 100px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #ff8c00;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#searchButton:hover {
+    background-color: #d2691e;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Resultados de búsqueda */
+#searchResults {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta el número de columnas automáticamente */
+    grid-gap: 20px; /* Espaciado entre tarjetas */
+    margin-top: 20px;
+    padding: 20px; /* Añadir padding dentro del contenedor */
+    margin-bottom: 20px; /* Espaciado inferior para no cortar la última tarjeta */
+}
+
+/* Tarjetas de búsqueda */
+.search-card {
+    background-color: #1b1b1b;
+    border: 1px solid #2a2a2a;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.search-card:hover {
+    background-color: #2a2a2a; /* Cambiar el color de fondo al hacer hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Aumentar la sombra */
+    transform: translateY(-5px); /* Mover ligeramente hacia arriba */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.search-card div {
+    margin-bottom: 5px;
+}

@@ -1,0 +1,340 @@
+/* Botón Historial de Registros */
+#botonhistor {
+    background-color: #1b1b1b;  /* Fondo oscuro */
+    color: #b0b0b0;  /* Texto gris claro */
+    border: 2px solid #ff8c00;  /* Borde naranja */
+    padding: 12px 20px;  /* Espaciado interno */
+    border-radius: 6px;  /* Bordes redondeados */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Sombra */
+    margin-bottom: 5px;  /* Añadir separación abajo del botón */
+    transition: background-color 0.4s, color 0.4s, transform 0.4s ease-in-out, box-shadow 0.4s;
+}
+
+#botonhistor:hover {
+    background-color: #ff8c00;  /* Fondo naranja en hover */
+    color: #ffffff;  /* Texto blanco en hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);  /* Sombra más fuerte en hover */
+    transform: scale(1.02);  /* Efecto de agrandar ligeramente */
+}
+
+/* Sección del historial */
+#historySection {
+    padding: 20px;
+    background-color: #121212;
+    color: white;
+    display: none; /* Por defecto está oculto */
+    position: fixed;
+    top: 60px; /* Ajuste para no cubrir el botón */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px); /* Calculamos el espacio debajo del botón */
+    z-index: 1000; /* Para que aparezca encima del contenido */
+    overflow-y: auto; /* Permitimos el scroll en el contenido si es necesario */
+}
+
+/* Select de fechas */
+#dateOption {
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 1px solid #ff8c00;
+    padding: 10px;
+    border-radius: 6px;
+    width: 40%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+#dateOption:hover {
+    background-color: #2a2a2a;
+    border-color: #ff8c00;
+}
+
+/* Campos de fechas personalizadas */
+#customDate {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 60%;
+}
+
+#customDate input {
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 1px solid #ff8c00;
+    padding: 8px;
+    border-radius: 6px;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Inputs de búsqueda */
+#searchInput {
+    width: calc(100% - 120px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    background-color: #121212;
+    color: #b0b0b0;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+#searchInput:hover {
+    background-color: #1f1f1f;
+    border-color: #ff8c00;
+}
+
+#searchButton {
+    width: 100px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #ff8c00;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#searchButton:hover {
+    background-color: #d2691e;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón para mostrar/ocultar historial */
+#toggleHistoryBtn {
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 1px solid #ff8c00;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+#toggleHistoryBtn:hover {
+    background-color: #2a2a2a;
+    border-color: #ff8c00;
+}
+
+/* Contenido del historial */
+#historyContent {
+    padding: 20px;
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    display: none;
+}
+
+/* Tarjetas del historial */
+#historyCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+/* Tarjetas de búsqueda */
+#searchCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+}
+
+#searchResults {
+    padding: 20px;
+}
+
+/* Estilo general del footer */
+footer {
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #2a2a2a;
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212; /* Fondo más oscuro */
+    color: #b0b0b0; /* Texto en tono gris claro */
+    line-height: 1.6;
+}
+
+/* Tarjetas del historial */
+#historyCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta el número de columnas automáticamente */
+    grid-gap: 20px; /* Espaciado entre tarjetas */
+    margin-top: 20px;
+    padding: 20px; /* Añadir padding dentro del contenedor */
+    margin-bottom: 20px; /* Espaciado inferior para no cortar la última tarjeta */
+}
+
+.history-card {
+    background-color: #1b1b1b;
+    border: 1px solid #2a2a2a;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    flex-direction: column; /* Asegura que el contenido interno esté bien alineado */
+}
+
+.history-card:hover {
+    background-color: #2a2a2a; /* Cambiar el color de fondo al hacer hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Aumentar la sombra */
+    transform: translateY(-5px); /* Mover ligeramente hacia arriba */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.history-card div {
+    margin-bottom: 5px;
+}
+
+.history-card img {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    margin-right: 10px;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    transition: transform 0.3s;
+}
+
+.history-card img:hover {
+    transform: scale(1.1);
+}
+
+/* Estilos para la búsqueda */
+#searchInput {
+    width: calc(100% - 120px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    background-color: #121212;
+    color: #b0b0b0;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+#searchInput:hover {
+    background-color: #1f1f1f; /* Oscurecer ligeramente el fondo */
+    border-color: #ff8c00;
+}
+
+#searchButton {
+    width: 100px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #ff8c00;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#searchButton:hover {
+    background-color: #d2691e;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#searchResults h3 {
+    color: #ff8c00;
+}
+
+#searchCards .history-card {
+    margin-bottom: 10px;
+}
+
+/* Estilos para el contenedor de tarjetas de búsqueda */
+#searchResults {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta el número de columnas automáticamente */
+    grid-gap: 20px; /* Espaciado entre tarjetas */
+    margin-top: 20px;
+    padding: 20px; /* Añadir padding dentro del contenedor */
+    margin-bottom: 20px; /* Espaciado inferior para no cortar la última tarjeta */
+}
+
+/* Estilos de las tarjetas individuales de búsqueda */
+.search-card {
+    background-color: #1b1b1b;
+    border: 1px solid #2a2a2a;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    flex-direction: column; /* Asegura que el contenido interno esté bien alineado */
+}
+
+.search-card:hover {
+    background-color: #2a2a2a; /* Cambiar el color de fondo al hacer hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Aumentar la sombra */
+    transform: translateY(-5px); /* Mover ligeramente hacia arriba */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.search-card div {
+    margin-bottom: 5px;
+}
+
+/* Estilos para las imágenes dentro de las tarjetas de búsqueda */
+.search-card img {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    margin-right: 10px;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    transition: transform 0.3s;
+}
+
+.search-card img:hover {
+    transform: scale(1.1);
+}
+
+/* Contenedor de la imagen en pantalla completa */
+.fullscreen-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    cursor: pointer;
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 1024px) {
+    #historyCards, #searchResults {
+        grid-template-columns: repeat(3, 1fr); /* Muestra 3 tarjetas en pantallas grandes */
+    }
+}
+
+/* Ajustes para pantallas medianas */
+@media (min-width: 680px) and (max-width: 1024px) {
+    #historyCards, #searchResults {
+        grid-template-columns: repeat(2, 1fr); /* Muestra 2 tarjetas en pantallas medianas */
+    }
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 680px) {
+    #historyCards, #searchResults {
+        grid-template-columns: repeat(1, 1fr); /* Muestra 1 tarjeta en pantallas pequeñas */
+    }
+}

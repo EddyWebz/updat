@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Configuraciones</title>
+    <link rel="stylesheet" href="/config.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/ico/favicon-16x16.png">
+    <link rel="manifest" href="/ico/site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <h1>Configuraciones</h1>
+    </header>
+
+    <!-- Menú desplegable para móviles -->
+    <div class="dropdown-menu">
+        <button class="menu-icon">
+            <i class="fas fa-bars"></i> <!-- Ícono de Font Awesome -->
+        </button>
+        <div class="dropdown-content">
+            <a href="#" id="home-link">Inicio</a>
+            <a href="#" id="notifications-link">Notificaciones</a>
+            <a href="#" id="editarRegistros">Editar Registros</a>
+            <a href="#" id="configSesion">Configuración de Sesión</a>
+            <a href="#" id="sobreNosotros">Sobre Nosotros</a>
+            <a href="#" id="logout-button">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <!-- Secciones de contenido ocultas inicialmente -->
+    <div id="contenido-editar" style="display: none;">
+        <h2>Editar Registros</h2>
+        <p>Aquí puedes editar los registros de los vehículos.</p>
+    </div>
+
+    <div id="contenido-sesion" style="display: none;">
+        <h2>Configuración de Sesión</h2>
+        <p>Aquí puedes configurar tu sesión.</p>
+    </div>
+
+    <div id="contenido-nosotros" style="display: none;">
+        <h2>Acerca de Nosotros</h2>
+        <p>Información sobre nosotros.</p>
+<p></p>
+    </div>
+
+    <!-- Pie de página básico -->
+    <footer>
+        <p>&copy; 2024 Veuxor. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/config.js"></script>
+</body>
+</html>

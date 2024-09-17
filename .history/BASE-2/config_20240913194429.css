@@ -1,0 +1,80 @@
+/* Botón Historial de Registros */
+#botonhistor {
+    background-color: #1b1b1b;  /* Fondo oscuro */
+    color: #b0b0b0;  /* Texto gris claro */
+    border: 2px solid #ff8c00;  /* Borde naranja */
+    padding: 12px 20px;  /* Espaciado interno */
+    border-radius: 6px;  /* Bordes redondeados */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Sombra */
+    margin-bottom: 5px;  /* Añadir separación abajo del botón */
+    transition: background-color 0.4s, color 0.4s, transform 0.4s ease-in-out, box-shadow 0.4s;
+}
+
+#botonhistor:hover {
+    background-color: #ff8c00;  /* Fondo naranja en hover */
+    color: #ffffff;  /* Texto blanco en hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);  /* Sombra más fuerte en hover */
+    transform: scale(1.02);  /* Efecto de agrandar ligeramente */
+}
+
+/* Fondo de pantalla completa para el historial */
+.fullscreen-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:#121212; /* Fondo oscuro semi-transparente */
+    z-index: 901; /* Colocado detrás del botón y el contenido */
+    display: none; /* Oculto por defecto */
+}
+
+/* Sección de historial */
+#historySection  {
+    padding: 20px;
+    background-color: #121212;
+    color: white;
+    display: none; /* Por defecto está oculto */
+    position: fixed;
+    top: 60px; /* Ajuste para no cubrir el botón */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px); /* Calculamos el espacio debajo del botón */
+    z-index: 1000; /* Para que aparezca encima del contenido */
+    overflow-y: auto; /* Permitimos el scroll en el contenido si es necesario */
+}
+
+/* Deshabilitar el scroll cuando el botón está en pantalla completa */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* Tarjetas del historial */
+#historyCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta el número de columnas automáticamente */
+    grid-gap: 20px; /* Espaciado entre tarjetas */
+    margin-top: 20px;
+    padding: 20px; /* Añadir padding dentro del contenedor */
+    margin-bottom: 20px; /* Espaciado inferior para no cortar la última tarjeta */
+}
+
+/* Estilos de las tarjetas */
+.history-card {
+    background-color: #1b1b1b;
+    border: 1px solid #2a2a2a;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.history-card:hover {
+    background-color: #2a2a2a; /* Cambiar el color de fondo al hacer hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Aumentar la sombra */
+    transform: translateY(-5px); /* Mover ligeramente hacia arriba */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}

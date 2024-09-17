@@ -1,0 +1,346 @@
+/* Estilos Generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9f5f9; /* Un fondo azul claro suave */
+    color: #333;
+    margin: 20px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Encabezado */
+header h1 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 1.7em;
+    margin-bottom: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Estilo unificado para h2 */
+h2 {
+    color: #2c3e50; /* Un color azul oscuro */
+    font-size: 1.3em; /* Tamaño de fuente ajustado */
+    font-weight: bold;
+    text-align: center; /* Centrar los títulos */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #5dade2; /* Añadir un borde inferior para separar visualmente */
+    letter-spacing: 0.5px;
+    text-transform: uppercase; /* Convertir a mayúsculas para consistencia */
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Sección de Notificaciones */
+#notificaciones h2 {
+    margin-bottom: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.notificaciones-garajes {
+    display: flex;
+    justify-content: space-between; /* Permite que los contenedores de garaje ocupen todo el ancho */
+}
+
+.garaje {
+    flex: 1;
+    margin-right: 15px; /* Reducir espacio entre columnas de garajes */
+}
+
+.notificaciones-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 3px; /* Reducir el espacio entre notificaciones */
+    animation: slideInUp 0.5s ease-in-out;
+}
+
+.notificacion {
+    background-color: #ffffff;
+    border-left: 3px solid #5dade2; /* Azul suave para el borde */
+    padding: 3px; /* Reducir padding interno */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    width: 100%;  /* Ocupa todo el ancho disponible */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    font-size: 0.9em; /* Reducir tamaño de la fuente */
+}
+
+.notificacion:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Animación y transición al arrastrar las celdas */
+.sortable-selected {
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    background-color: #f0f0f0; /* Cambiar el fondo cuando se selecciona */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Añadir sombra más fuerte para destacar la celda */
+    transform: scale(1.05); /* Ligeramente más grande al seleccionar */
+}
+
+/* Efecto hover en las celdas */
+.compact-table td:hover {
+    background-color: #d0e9f5; /* Cambiar el color de fondo al pasar el cursor */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Añadir transición suave */
+    transform: scale(1.02); /* Ligeramente más grande al hacer hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Añadir sombra al pasar el cursor */
+}
+
+/* Botón Descargar PDF */
+button {
+    padding: 8px 16px; /* Reducir tamaño del botón */
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px; /* Agregar margen superior para separarlo del contenido */
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Sección de Reportes */
+#reportes h2 {
+    margin-bottom: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+#form-reporte {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#form-reporte input, #form-reporte button {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #bdc3c7;
+    font-size: 0.8em;
+}
+
+#form-reporte button {
+    background-color: #3498db; /* Azul suave para el botón */
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#form-reporte button:hover {
+    background-color: #2980b9; /* Azul más oscuro al pasar el ratón */
+    transform: translateY(-2px);
+}
+
+/* Tablas de Reportes */
+.reportes-garajes {
+    display: flex;
+    justify-content: space-between; /* Permite que las tablas de garaje ocupen todo el ancho */
+}
+
+.compact-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px; /* Reducir espacio inferior */
+    font-size: 0.75em; /* Reducir tamaño de la fuente */
+}
+
+.compact-table th, .compact-table td {
+    border: 1px solid #bdc3c7;
+    padding: 5px; /* Reducir padding */
+    text-align: center;
+    background-color: #f2f6f9; /* Azul claro suave */
+    color: #2c3e50;
+    transition: background-color 0.3s ease;
+}
+
+.compact-table th {
+    background-color: #5dade2; /* Azul suave para encabezados */
+    color: white;
+}
+
+.compact-table tr:nth-child(even) {
+    background-color: #ecf7fa; /* Azul aún más claro */
+}
+
+.compact-table tr:hover {
+    background-color: #d0e9f5; /* Color al pasar el ratón */
+}
+
+/* Estilo del menú desplegable */
+.dropdown-menu {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    z-index: 1000;
+}
+
+.menu-icon {
+    background-color: #2c3e50;
+    color: #ffffff;
+    border: 2px solid #5dade2;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: padding 0.6s cubic-bezier(0.4, 0.0, 0.2, 1), 
+                font-size 0.6s cubic-bezier(0.4, 0.0, 0.2, 1), 
+                background-color 0.6s ease, 
+                transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transform: rotate(0deg);
+}
+
+.menu-icon:hover {
+    background-color: #34495e;
+    transform: scale(1.1);
+}
+
+.menu-icon:hover, .menu-icon.open {
+    background-color: #1c2833; /* Un color más oscuro para el estado activo */
+    transform: scale(1.15); /* Un poco más grande al estar activo */
+}
+
+.menu-icon.open {
+    transform: rotate(90deg);
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Estilo del contenido desplegable con animación */
+.dropdown-content {
+    display: block; /* Cambiado para asegurar que esté siempre visible y manejado solo por la animación */
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: rgba(44, 62, 80, 0.95);
+    min-width: 160px;
+    box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.3); /* Sombra más intensa */
+    border-radius: 5px;
+    z-index: 1001;
+    opacity: 0;
+    transform: translateY(-20px); /* Ajuste para una transición suave */
+    transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    visibility: hidden; /* Oculta el menú visualmente y funcionalmente */
+    pointer-events: none; /* Deshabilita la interacción cuando está oculto */
+}
+
+.dropdown-content.show {
+    opacity: 1;
+    transform: translateY(0); /* Desplazamiento suave hacia abajo */
+    visibility: visible; /* Hace el menú visible */
+    pointer-events: auto; /* Habilita la interacción */
+}
+
+.dropdown-content.hide {
+    opacity: 0;
+    transform: translateY(-10px); /* Suave desplazamiento hacia arriba al ocultar */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Transición para la animación */
+    visibility: hidden; /* Oculta el menú visualmente y funcionalmente */
+    pointer-events: none; /* Deshabilita la interacción */
+}
+
+.dropdown-content a {
+    color: #ffffff;
+    padding: 10px 12px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.4s ease;
+    border-bottom: 1px solid #34495e;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #5dade2;
+}
+
+/* Aumentar tamaño en pantallas grandes */
+@media (min-width: 792px) {
+    .menu-icon {
+        padding: 12px;
+        font-size: 28px;
+    }
+
+    .dropdown-content {
+        min-width: 200px; /* Aumentar el ancho del menú desplegable en pantallas grandes */
+        font-size: 18px; /* Aumentar el tamaño del texto en pantallas grandes */
+    }
+
+    .dropdown-content a {
+        font-size: 18px; /* Aumentar tamaño del texto de los enlaces */
+        padding: 12px 14px; /* Aumentar padding para mayor espacio en el enlace */
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Estilos específicos para impresión */
+@media print {
+    body {
+        background-color: white; /* Asegura un fondo blanco para la impresión */
+        color: black; /* Asegura que el texto sea negro */
+    }
+
+    #reportes h2, #reportes h3 {
+        color: black; /* Asegura que los títulos sean visibles */
+    }
+    
+    #reportes table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Reducir tamaño de fuente y padding en celdas */
+    #reportes th, #reportes td {
+        border: 1px solid #000;
+        padding: 0px;
+        text-align: center;
+        height: 6px;
+        font-size: 10px;
+        background-color: white;
+        color: black;
+    }
+    
+    #reportes th {
+        background-color: #ddd;
+        color: black;
+    }
+
+    #reportes td {
+        color: black;
+    }
+
+    /* Ocultar elementos no necesarios en la impresión */
+    button, #form-reporte {
+        display: none;
+    }
+
+    /* Ajuste para impresión en una sola página */
+    #reportes {
+        page-break-before: always;
+    }
+}

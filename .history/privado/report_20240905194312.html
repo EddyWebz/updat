@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> <!-- Desactiva el zoom -->
+    <title>Notificaciones y Reportes de Vehículos</title>
+    <!-- Vinculación al archivo CSS de notificaciones -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/ico.rep/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ico.rep/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/ico.rep/favicon-16x16.png">
+    <link rel="manifest" href="/ico.rep/site.webmanifest">
+    <link rel="stylesheet" href="/notif.css">
+    <!-- Iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <!-- Menú desplegable -->
+    <div class="dropdown-menu">
+        <button class="menu-icon">
+            <i class="fas fa-bars"></i> <!-- Ícono de Font Awesome -->
+        </button>
+        <div class="dropdown-content">
+            <a href="#" id="home-link">Inicio</a>
+            <a href="#" id="home-link">Configuración</a>
+            <a href="#" id="logout-button">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <!-- Encabezado de la página -->
+    <header>
+        <h1>Notificaciones</h1>
+    </header>
+
+    <!-- Sección de Notificaciones Activas -->
+    <section id="notificaciones">
+        <h2>Registro Diario</h2>
+        <div class="notificaciones-garajes">
+            <div class="garaje">
+                <h3>Garaje P1</h3>
+                <div id="notificaciones-contenedor-P1" class="notificaciones-contenedor">
+                    <!-- Las notificaciones dinámicas de P1 se insertarán aquí -->
+                </div>
+            </div>
+            <div class="garaje">
+                <h3>Garaje P2</h3>
+                <div id="notificaciones-contenedor-P2" class="notificaciones-contenedor">
+                    <!-- Las notificaciones dinámicas de P2 se insertarán aquí -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Reportes -->
+    <form id="form-reporte">
+        <!-- Botón de Imprimir -->
+        <button type="button" id="btn-imprimir">Descargar PDF</button>
+    </form>
+    <h2>Reporte Diario</h2>
+
+    <div class="reportes-garajes" id="Imprimir">
+        <div class="garaje">
+            <h3>Garaje P1</h3>
+            <table id="tabla-reporte-P1" class="compact-table">
+                <thead>
+                    <tr>
+                        <th>Habitación</th>
+                        <th>Placa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Las filas de datos se insertarán dinámicamente aquí -->
+                    <tr>
+                        <td data-id="1">Habitación 101</td>
+                        <td>ABC123</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="garaje">
+            <h3>Garaje P2</h3>
+            <table id="tabla-reporte-P2" class="compact-table">
+                <thead>
+                    <tr>
+                        <th>Habitación</th>
+                        <th>Placa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Las filas de datos se insertarán dinámicamente aquí -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Incluyendo SortableJS desde un CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
+    <!-- Vinculación al archivo JavaScript de notificaciones y reportes -->
+    <script src="/drag.js"></script>
+    <script src="/report.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Configuraciones</title>
+    <link rel="stylesheet" href="/config.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/ico/favicon-16x16.png">
+    <link rel="manifest" href="/ico/site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sección principal -->
+    <main>
+        <button id="botonhistor">Historial de Registros</button>
+
+        <div id="historySection" style="display: none;">
+            <!-- Filtro por Fechas -->
+            <select id="dateOption" name="dateOption">
+                <option value="7days">Últimos 7 días</option>
+                <option value="15days">Últimos 15 días</option>
+                <option value="1month" selected>Último mes</option>
+                <option value="2months">Últimos 2 meses</option>
+                <option value="manual">Personalizado</option>
+            </select>
+
+            <!-- Campos para el rango de fechas personalizado -->
+            <div id="customDate" style="display: none;">
+                <label for="startDate">Fecha de inicio:</label>
+                <input type="date" id="startDate" name="startDate">
+                
+                <label for="endDate">Fecha de fin:</label>
+                <input type="date" id="endDate" name="endDate">
+            </div>
+          
+            <!-- Sección de Historial -->
+            <section id="history">
+                <input type="text" id="searchInput" placeholder="Buscar por nombre o placa">
+                <button id="searchButton">Buscar</button>
+                <button id="toggleHistoryBtn">Mostrar Historial</button>
+
+                <div id="historyContent" style="display: none;">
+                    <div id="historyCards"></div>
+                </div>
+
+                <div id="searchCards" style="display: none;">
+                    <div id="searchResults"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Pie de página básico -->
+    <footer>
+        <p>&copy; 2024 Veuxor. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/config.js"></script>
+</body>
+</html>

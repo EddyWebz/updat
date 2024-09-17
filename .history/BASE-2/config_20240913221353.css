@@ -1,0 +1,153 @@
+/* Estilos generales */
+body {
+    background-color: #000000; /* Fondo AMOLED negro puro */
+    color: #e0e0e0; /* Texto gris claro */
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado */
+header {
+    background-color: #000000; /* Fondo AMOLED */
+    color: #ffffff; /* Texto blanco puro */
+    padding: 20px;
+    text-align: center;
+}
+
+
+/* Estilo del menú desplegable */
+.dropdown-menu {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 900;
+}
+
+.menu-icon {
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 2px solid #ff8c00;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.menu-icon:hover {
+    background-color: #2a2a2a;
+    transform: scale(1.1);
+}
+
+.menu-icon.open {
+    transform: rotate(90deg);
+}
+
+/* Estilo del contenido desplegable con animación */
+.dropdown-content {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: rgba(27, 27, 27, 0.95); /* Fondo aún más oscuro */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 900;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease; /* Suave animación */
+    visibility: hidden; /* Asegura que no sea clickeable cuando esté oculto */
+    pointer-events: none; /* Deshabilita la interacción cuando esté oculto */
+}
+
+.dropdown-content.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible; /* Hace el menú visible */
+    pointer-events: auto; /* Habilita la interacción cuando esté visible */
+}
+
+.dropdown-content.hide {
+    opacity: 0;
+    transform: translateY(-10px);
+    visibility: hidden; /* Oculta y hace no clickeable después de la animación */
+    pointer-events: none; /* Deshabilita la interacción cuando esté oculto */
+}
+
+.dropdown-content a {
+    color: #b0b0b0;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #2a2a2a;
+}
+
+/* Botones de la sección Configuraciones */
+
+
+/* Evento hover para los botones */
+.config-btn:hover {
+    background-color: #3a3a3a; /* Fondo gris más claro en hover */
+    color: #ffffff; /* Texto blanco en hover */
+    transform: scale(1.02); /* Ligeramente agrandado en hover */
+}
+
+/* Pie de página */
+footer {
+    background-color: #000000;
+    color: #d3d3d3; /* Texto gris plateado */
+    text-align: center;
+    padding: 20px;
+}
+
+/* Menú lateral fijo */
+.menu-lateral {
+    width: 250px;
+    position: fixed;
+    height: 100%;
+    background-color: #1c1c1c;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+}
+
+
+.config-btn {
+    background-color: #1c1c1c; /* Fondo gris muy oscuro y serio */
+    color: #d3d3d3; /* Texto gris plateado */
+    border: 2px solid #3a3a3a; /* Borde gris oscuro para un toque discreto */
+    padding: 12px 20px;
+    border-radius: 6px; /* Bordes suaves pero no demasiado redondeados */
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+/* Área de contenido principal */
+.contenido {
+    margin-left: 260px; /* Espacio para el menú lateral */
+    padding: 20px;
+    height: 100vh;
+}
+
+.contenido-seccion {
+    display: none; /* Oculta las secciones por defecto */
+}
+
+.contenido-seccion.active {
+    display: block; /* Muestra la sección activa */
+}

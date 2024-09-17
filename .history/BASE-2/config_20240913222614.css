@@ -1,0 +1,123 @@
+/* Estilos generales */
+body {
+    background-color: #000000; /* Fondo AMOLED negro puro */
+    color: #e0e0e0; /* Texto gris claro */
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado */
+header {
+    background-color: #000000; /* Fondo AMOLED */
+    color: #ffffff; /* Texto blanco puro */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Estilo del menú desplegable */
+.dropdown-menu {
+    position: relative; /* Cambiado de absolute a relative */
+    z-index: 900;
+}
+
+.menu-icon {
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 2px solid #ff8c00;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.menu-icon:hover {
+    background-color: #2a2a2a;
+    transform: scale(1.1);
+}
+
+.menu-icon.open {
+    transform: rotate(90deg);
+}
+
+/* Estilo del contenido desplegable con animación */
+.dropdown-content {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: rgba(27, 27, 27, 0.95); /* Fondo más oscuro */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 900;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.dropdown-content.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Menú lateral fijo debajo del menú desplegable */
+.menu-lateral {
+    width: 250px;
+    position: fixed;
+    top: 80px; /* Debajo del menú desplegable */
+    height: calc(100% - 80px); /* Ocupa el resto de la pantalla */
+    background-color: #1c1c1c;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    z-index: 800;
+}
+
+/* Botones del menú lateral */
+.config-btn {
+    background-color: #1c1c1c; /* Fondo gris muy oscuro */
+    color: #d3d3d3; /* Texto gris plateado */
+    border: 2px solid #3a3a3a; /* Borde gris oscuro */
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.config-btn:hover {
+    background-color: #3a3a3a; /* Fondo gris más claro */
+    color: #ffffff;
+    transform: scale(1.02);
+}
+
+/* Área de contenido principal respetando el menú lateral */
+.contenido {
+    margin-left: 260px; /* Espacio para el menú lateral */
+    padding: 20px;
+    height: 100vh;
+}
+
+.contenido-seccion {
+    display: none; /* Oculta las secciones por defecto */
+}
+
+.contenido-seccion.active {
+    display: block; /* Muestra la sección activa */
+}
+
+/* Pie de página */
+footer {
+    background-color: #000000;
+    color: #d3d3d3;
+    text-align: center;
+    padding: 20px;
+}

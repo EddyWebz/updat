@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Configuraciones</title>
+    <link rel="stylesheet" href="/config.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/ico/favicon-16x16.png">
+    <link rel="manifest" href="/ico/site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <h1>Configuraciones</h1>
+    </header>
+
+    <!-- Menú desplegable para móviles -->
+    <div class="dropdown-menu">
+        <button class="menu-icon">
+            <i class="fas fa-bars"></i> <!-- Ícono de Font Awesome -->
+        </button>
+        <div class="dropdown-content">
+            <a href="#" id="home-link">Inicio</a>
+            <a href="#" id="notifications-link">Notificaciones</a>
+            <a href="#" id="editarRegistros">Editar Registros</a>
+            <a href="#" id="configSesion">Configuración de Sesión</a>
+            <a href="#" id="sobreNosotros">Sobre Nosotros</a>
+            <a href="#" id="logout-button">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <!-- Secciones de contenido ocultas inicialmente -->
+    <div id="contenido-editar" style="display: none;">
+        <h2>Editar Registros</h2>
+        <!-- Opciones de Fechas -->
+<select id="dateOption" name="dateOption">
+    <option value="7days">Últimos 7 días</option>
+    <option value="15days">Últimos 15 días</option>
+    <option value="1month" selected>Último mes</option>
+    <option value="2months">Últimos 2 meses</option>
+    <option value="manual">Personalizado</option>
+</select>
+
+<!-- Campos para el rango de fechas personalizado -->
+<div id="customDate" style="display: none;">  <!-- Inicialmente oculto -->
+    <label for="startDate">Fecha de inicio:</label>
+    <input type="date" id="startDate" name="startDate">
+    
+    <label for="endDate">Fecha de fin:</label>
+    <input type="date" id="endDate" name="endDate">
+</div>
+
+                <section id="history">
+                    <input type="text" id="searchInput" placeholder="Buscar por nombre o placa">
+                    <button id="searchButton">Buscar</button>
+                    <button id="toggleHistoryBtn">Mostrar Historial</button>
+                    <div id="historyContent" style="display: none;">
+                        <div id="historyCards" ></div>
+                    </div>
+                    <div id="searchCards" style="display: none;">
+                        <div id="searchResults" ></div>
+                    </div>
+                </section>
+         
+    </div>
+
+    <div id="contenido-sesion" style="display: none;">
+        <h2>Configuración de Sesión</h2>
+        <p>Aquí puedes configurar tu sesión.</p>
+        <p>Aquí tienes dos párrafos de texto "Lorem Ipsum":
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt sapien eget augue dictum, in cursus neque consectetur. Nulla facilisi. Integer ac augue ut velit convallis facilisis non a magna. Nulla malesuada augue sit amet magna fermentum, sed vulputate sapien finibus. Ut viverra orci at orci vulputate, a condimentum metus facilisis. Proin non faucibus augue. Duis maximus, sapien ac efficitur rhoncus, libero lacus convallis augue, vel dapibus ligula dolor nec mauris. Vestibulum tempor libero at turpis consequat vehicula. Sed luctus metus sit amet mauris malesuada, ac pharetra velit tincidunt. Ut feugiat magna eu libero dapibus tincidunt.
+            
+            Sed suscipit urna a erat scelerisque suscipit. Etiam ac nibh ac tortor mollis sollicitudin. Vivamus pellentesque velit non suscipit hendrerit. Phasellus feugiat elit eu purus suscipit, et ultricies nunc tempor. Nulla facilisi. Ut auctor sapien at magna vestibulum tincidunt. Vestibulum scelerisque justo at dui aliquam, id viverra odio mollis. Integer dignissim libero non risus tincidunt, vel feugiat magna fringilla. Nunc vitae neque nec nisi porttitor fringilla ac id velit. Nam a urna vel tortor lobortis bibendum vel sed nisi. Curabitur a orci non ante fermentum scelerisque ac nec arcu. Proin in tellus nec enim maximus suscipit eget nec turpis.</p>
+    </div>
+
+    <div id="contenido-nosotros" style="display: none;">
+        <h2>Acerca de Nosotros</h2>
+        <p>Información sobre nosotros.</p>
+<p>Aquí tienes dos párrafos de texto "Lorem Ipsum":
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt sapien eget augue dictum, in cursus neque consectetur. Nulla facilisi. Integer ac augue ut velit convallis facilisis non a magna. Nulla malesuada augue sit amet magna fermentum, sed vulputate sapien finibus. Ut viverra orci at orci vulputate, a condimentum metus facilisis. Proin non faucibus augue. Duis maximus, sapien ac efficitur rhoncus, libero lacus convallis augue, vel dapibus ligula dolor nec mauris. Vestibulum tempor libero at turpis consequat vehicula. Sed luctus metus sit amet mauris malesuada, ac pharetra velit tincidunt. Ut feugiat magna eu libero dapibus tincidunt.
+    
+    Sed suscipit urna a erat scelerisque suscipit. Etiam ac nibh ac tortor mollis sollicitudin. Vivamus pellentesque velit non suscipit hendrerit. Phasellus feugiat elit eu purus suscipit, et ultricies nunc tempor. Nulla facilisi. Ut auctor sapien at magna vestibulum tincidunt. Vestibulum scelerisque justo at dui aliquam, id viverra odio mollis. Integer dignissim libero non risus tincidunt, vel feugiat magna fringilla. Nunc vitae neque nec nisi porttitor fringilla ac id velit. Nam a urna vel tortor lobortis bibendum vel sed nisi. Curabitur a orci non ante fermentum scelerisque ac nec arcu. Proin in tellus nec enim maximus suscipit eget nec turpis.</p>
+    <p>Aquí tienes dos párrafos de texto "Lorem Ipsum":
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt sapien eget augue dictum, in cursus neque consectetur. Nulla facilisi. Integer ac augue ut velit convallis facilisis non a magna. Nulla malesuada augue sit amet magna fermentum, sed vulputate sapien finibus. Ut viverra orci at orci vulputate, a condimentum metus facilisis. Proin non faucibus augue. Duis maximus, sapien ac efficitur rhoncus, libero lacus convallis augue, vel dapibus ligula dolor nec mauris. Vestibulum tempor libero at turpis consequat vehicula. Sed luctus metus sit amet mauris malesuada, ac pharetra velit tincidunt. Ut feugiat magna eu libero dapibus tincidunt.
+        
+        Sed suscipit urna a erat scelerisque suscipit. Etiam ac nibh ac tortor mollis sollicitudin. Vivamus pellentesque velit non suscipit hendrerit. Phasellus feugiat elit eu purus suscipit, et ultricies nunc tempor. Nulla facilisi. Ut auctor sapien at magna vestibulum tincidunt. Vestibulum scelerisque justo at dui aliquam, id viverra odio mollis. Integer dignissim libero non risus tincidunt, vel feugiat magna fringilla. Nunc vitae neque nec nisi porttitor fringilla ac id velit. Nam a urna vel tortor lobortis bibendum vel sed nisi. Curabitur a orci non ante fermentum scelerisque ac nec arcu. Proin in tellus nec enim maximus suscipit eget nec turpis.</p>
+    </div>
+
+    <!-- Pie de página básico -->
+    <footer>
+        <p>&copy; 2024 Veuxor. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/config.js"></script>
+</body>
+</html>
