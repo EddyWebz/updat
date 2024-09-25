@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/ico.login/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/ico.login/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/ico.login/favicon-16x16.png">
+<link rel="manifest" href="/ico.login/site.webmanifest">
+    <!-- Enlace a la hoja de estilos CSS -->
+    <link rel="stylesheet" href="login.css">
+    <!-- Enlace a la biblioteca de iconos Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Contenedor principal que envuelve los formularios de inicio de sesión y registro -->
+    <div class="container" id="container">
+        <!-- Contenedor del formulario de inicio de sesión -->
+        <div class="form-container sign-in-container">
+            <form id="login-form">
+                <h1>Iniciar Sesión</h1>
+                <!-- Contenedor de iconos sociales -->
+                <div class="social-container">
+                    <a href="https://www.tiktok.com/@hotelveuxor" class="social" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/hotelveuxor" class="social" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/hotelveuxorec/" class="social" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://api.whatsapp.com/send?phone=+593980197790" class="social" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <span>o usa tu cuenta</span>
+                <div class="input-container">
+                    <i class="fas fa-envelope icon"></i>
+                    <input type="email" placeholder="Email" id="login-email" required/>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-lock icon"></i>
+                    <input type="password" placeholder="Contraseña" id="login-password" required/>
+                </div>
+                <a href="#">¿Olvidaste tu contraseña?</a>
+                <button type="submit" id="loginButton">Iniciar Sesión</button>
+                <!-- Botón para cambiar al formulario de registro -->
+    
+            </form>
+        </div>
+    
+    </div>
+    
+    <!-- Enlace al archivo frontend.js -->
+    <script src="frontend.js"></script>
+    <!-- enlase de libreria de alertas javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

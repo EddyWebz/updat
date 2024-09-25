@@ -1,0 +1,619 @@
+/* Estilos Generales */
+body {
+    background-color: #000000;
+    color: #e0e0e0;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Evitar el desplazamiento horizontal */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegurar que el cuerpo tenga al menos el tamaño completo de la ventana */
+}
+/* Asegurar que el pie de página esté siempre en la parte inferior */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenedor Principal que crecerá para ocupar el espacio restante */
+main {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto; /* Permitir que el contenido principal sea desplazable si es necesario */
+    background-color: #1b1b1b;
+}
+
+
+
+
+header {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px ; /* Ajustamos el padding para reducir el espacio */
+    text-align: center;
+
+
+}
+
+/* Menú desplegable para móviles */
+.dropdown-menu {
+    position: relative;
+    z-index: 900;
+    margin-top: -80px; /* Mover hacia arriba */
+    margin-left: 20px; /* Añadir espacio a la izquierda */
+    margin-bottom: 30px;
+}
+
+.menu-icon {
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 2px solid #ff8c00;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.menu-icon:hover {
+    background-color: #2a2a2a;
+    transform: scale(1.1);
+}
+
+.menu-icon.open {
+    transform: rotate(90deg);
+}
+
+.dropdown-content {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: rgba(27, 27, 27, 0.95);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 900;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.dropdown-content.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.dropdown-content a {
+    color: #b0b0b0;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.dropdown-content a:hover {
+    background-color: #2a2a2a;
+}
+
+/* Para pantallas grandes: menú horizontal */
+@media screen and (min-width: 972px) {
+    /* Ocultar el ícono del menú desplegable en pantallas grandes */
+    .menu-icon {
+        display: none;
+    }
+
+    .dropdown-menu {
+        display: flex;
+        justify-content: flex-start; /* Alineamos el menú hacia la izquierda */
+        background-color: #1b1b1b;
+        margin-top: 30px; /* Mover hacia arriba */
+        padding-left: 10px; /* Ajustamos el padding para que no quede pegado a la izquierda */
+        margin-left: 10px; /* Añadir espacio a la izquierda */
+        margin-right: 10px;
+    }
+
+    .dropdown-content {
+        position: relative;
+        display: flex;
+        justify-content: flex-start; /* Comienza desde la izquierda */
+        background-color: transparent;
+        visibility: visible;
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        box-shadow: none;
+    }
+
+    .dropdown-content a {
+        color: #ffffff;
+        padding: 10px 15px;
+        margin: 0 10px;
+        border: none;
+        display: inline-block;
+        background-color: transparent;
+        margin-top: -43px; /* Sube los botones 5px */
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ff8c00;
+        color: #000000;
+    }
+}
+
+/* Secciones de contenido que se mostrarán al hacer clic */
+#contenido-editar, #contenido-sesion, #contenido-nosotros {
+    margin-top: 0px;
+    padding: 20px;
+    background-color: #1b1b1b;
+    color: #e0e0e0;
+    display: none; /* Ocultar las secciones inicialmente */
+    flex-grow: 1;
+    overflow-y: auto; /* Habilitar scroll dentro de las secciones si es necesario */
+    max-height: calc(100vh - 100px); /* Limitar la altura de las secciones, ajustando según el tamaño de la pantalla */
+    transition: all 0.4s ease;
+    
+
+}
+
+/* RECETEAR EN TODOS LOS CONTENIDOS */
+#contenido-editar, #contenido-sesion, #contenido-nosotros h2{
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+/* TRABAJANDO CON SECCION CONTENIDO-EDITAR*/
+#contenido-editar {
+    background-color: #121212; /* Un color ligeramente más claro para resaltar la sección */
+    border-radius: 10px; /* Añadir bordes redondeados */
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra para destacar */
+}
+
+#contenido-editar h2 {
+    margin-top: 0; /* Mantener el margen y padding */
+    padding-top: 0;
+    font-size: 1.8rem; /* Aumentar un poco el tamaño del texto */
+    color: #ff8c00; /* Cambiar color para destacar el título */
+}
+
+/* Estilo del select de fechas */
+#dateOption {
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 1px solid #ff8c00;
+    padding: 10px;
+    border-radius: 6px;
+    width: 40%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+#dateOption:hover {
+    background-color: #2a2a2a;
+    border-color: #ff8c00;
+}
+
+
+/* Ajustes para los campos personalizados */
+#customDate {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 60%; /* El ancho general del contenedor */
+}
+
+#customDate input {
+    display: block;
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 1px solid #ff8c00;
+    padding: 8px;
+    border-radius: 6px;
+    width: 100%; /* Los inputs ocupan todo el ancho del contenedor */
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+
+
+
+/* Boton principal historial apertura / { campo fecha }*/
+@media only screen and (max-width: 768px) {
+
+/* estylos de la seccion fecha */
+    
+    #customDate {
+        width: 80%; /* En móviles, que ocupe casi todo el ancho */
+        flex-direction: column; /* Colocar los campos en columnas */
+        justify-content: center; /* Alinear los elementos en el centro */
+        gap: 10px;
+    }
+
+    #customDate input {
+        width: 90%; /* En móviles, los campos deben ocupar todo el ancho del contenedor */
+    }
+}
+
+/* Estilos para la búsqueda */
+#searchInput {
+    width: calc(100% - 120px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    background-color: #121212;
+    color: #b0b0b0;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+#searchInput:hover {
+    background-color: #1f1f1f; /* Oscurecer ligeramente el fondo */
+    border-color: #ff8c00;
+}
+
+#searchButton {
+    width: 100px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #ff8c00;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#searchButton:hover {
+    background-color: #d2691e;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+#searchResults h3 {
+    color: #ff8c00;
+}
+
+#searchCards .history-card {
+    margin-bottom: 10px;
+}
+
+/* Estilos para el contenedor de tarjetas de búsqueda */
+#searchResults {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta el número de columnas automáticamente */
+    grid-gap: 20px; /* Espaciado entre tarjetas */
+    margin-top: 20px;
+    padding: 20px; /* Añadir padding dentro del contenedor */
+    margin-bottom: 20px; /* Espaciado inferior para no cortar la última tarjeta */
+}
+
+/* Estilos de las tarjetas individuales de búsqueda */
+.search-card {
+    background-color: #0e0e0e;
+    border: 1px solid #2a2a2a;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    flex-direction: column; /* Asegura que el contenido interno esté bien alineado */
+}
+
+/* Efecto hover para las tarjetas de búsqueda */
+.search-card:hover {
+    background-color: #181818; /* Cambiar el color de fondo al hacer hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Aumentar la sombra */
+    transform: translateY(-5px); /* Mover ligeramente hacia arriba */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.search-card div {
+    margin-bottom: 5px;
+}
+
+/* Estilos para las imágenes dentro de las tarjetas de búsqueda */
+.search-card img {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    margin-right: 10px;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    transition: transform 0.3s;
+}
+
+.search-card img:hover {
+    transform: scale(1.1);
+}
+ /* Estilos para diferenciar textos fijos y datos */
+.search-card .fixed-text {
+    font-weight: bold;
+    color: #b0b0b0; /* Cambiar a un color que resalte los textos fijos */
+}
+
+.search-card .data-text {
+    font-weight: normal;
+    color: hsl(0, 0%, 100%); /* Color de los datos traídos de la base de datos */
+}
+
+
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 680px) {
+    header {
+        padding: 20px 0;
+    }
+
+    main {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    form input, form select, form textarea, form button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 680px) {
+    header {
+        padding: 15px 0;
+    }
+
+    main {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    form input, form select, form textarea, form button {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 1024px) {
+    #searchResults {
+        grid-template-columns: repeat(3, 1fr); /* Muestra 3 tarjetas en pantallas grandes */
+    }
+}
+
+/* Ajustes para pantallas medianas */
+@media (min-width: 680px) and (max-width: 1024px) {
+    #searchResults {
+        grid-template-columns: repeat(2, 1fr); /* Muestra 2 tarjetas en pantallas medianas */
+    }
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 680px) {
+    #searchResults {
+        grid-template-columns: repeat(1, 1fr); /* Muestra 1 tarjeta en pantallas pequeñas */
+    }
+}
+
+/*SECCIÓN EDITAR VEHICULO*/
+/* Sección de Edición de Vehículo */
+#contenido-update {
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+}
+
+#contenido-update h2 {
+    color: #ff8c00;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+/* Estilos para los campos del formulario */
+#contenido-update label {
+    color: #e0e0e0;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+#contenido-update input, 
+#contenido-update select, 
+#contenido-update textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #2a2a2a;
+    border-radius: 5px;
+    background-color: #121212;
+    color: #e0e0e0;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+#contenido-update input[type="file"] {
+    padding: 5px;
+}
+
+/* Botón para guardar cambios */
+#contenido-update button {
+    background-color: #ff8c00;
+    color: #fff;
+    padding: 12px 20px;
+    margin-bottom: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#contenido-update button:hover {
+    background-color: #e07b00;
+}
+
+/* Vista previa de las imágenes */
+.image-preview-container {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.image-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 2px solid #2a2a2a;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-preview:hover {
+    transform: scale(1.1);
+    border-color: #ff8c00;
+}
+
+/* PONER MENU DE EDICION EN FULL SCREEN */
+.fullscreen-edit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    z-index: 1000;
+    overflow-y: auto;  /* Habilitar desplazamiento vertical */
+    overflow-x: hidden; /* Evitar el desplazamiento horizontal */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#vehicleEditForm {
+    display: block;
+    margin-bottom: 20px; /* Espacio en la parte inferior */
+}
+
+/* SECCION CONFIGURACION DE SESION */
+/* SECCION CONFIGURACION DE SESION */
+/* Estilo general del contenedor */
+#contenido-sesion {
+    background-color: #1a1a1a; /* Igual que la sección de edición */
+    color: #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra similar a la sección de edición */
+    margin-top: -10px;
+}
+
+/* Estilo de los títulos */
+#contenido-sesion h2 {
+    color: #ff8c00; /* Usar el mismo color de los títulos de edición */
+    font-size: 1.8rem; /* Ajustar el tamaño para que sea consistente */
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ff8c00; /* Línea debajo del título con el color temático */
+    padding-bottom: 10px;
+}
+
+/* Estilo del formulario de creación de sub-usuarios */
+#contenido-sesion form {
+    display: flex;
+    flex-direction: column;
+}
+
+#contenido-sesion label {
+    color: #e0e0e0; /* Usar el mismo color de texto */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#contenido-sesion input[type="text"],
+#contenido-sesion input[type="email"],
+#contenido-sesion input[type="password"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #2a2a2a;
+    border-radius: 5px;
+    background-color: #121212;
+    color: #e0e0e0;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra similar a los campos de edición */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#contenido-sesion input[type="text"]:hover,
+#contenido-sesion input[type="email"]:hover,
+#contenido-sesion input[type="password"]:hover {
+    background-color: #1f1f1f;
+    border-color: #ff8c00;
+}
+
+/* Estilo del botón para crear sub-usuario */
+#contenido-sesion button[type="submit"] {
+    padding: 12px;
+    background-color: #ff8c00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+#contenido-sesion button[type="submit"]:hover {
+    background-color: #e07b00;
+}
+
+/* Lista de sub-usuarios */
+#subUserList {
+    margin-top: 20px;
+}
+
+#subUserList div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #121212; /* Similar a las tarjetas de la sección de edición */
+    border: 1px solid #2a2a2a;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#subUserList button {
+    padding: 8px 15px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#subUserList button:hover {
+    background-color: #ff0000;
+}
+/* BOTON MOSTRAR-OCULTAR SUB-USUARIOS */
+#toggleSubUserList {
+    padding: 10px;
+    background-color: #ff8c00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-bottom: 10px;
+}
+
+#toggleSubUserList:hover {
+    background-color: #e07b00;
+}

@@ -1,0 +1,201 @@
+/* Importación de la fuente Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Reseteo de box-sizing para todos los elementos */
+* {
+    box-sizing: border-box;
+}
+
+/* Estilos básicos para el cuerpo */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #f2f2f2;  /* Fondo gris claro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0 15px;
+    transition: all 0.3s ease;
+}
+
+/* Estilos para el título principal */
+h1 {
+    font-weight: bold;
+    margin-top: 20px;
+    color: #4d4d4d;  /* Texto gris oscuro */
+    font-size: 2rem;
+    text-align: center;
+}
+
+/* Estilos para los párrafos */
+p {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 20px;
+    margin: 20px 0 30px;
+    color: #4d4d4d;  /* Gris oscuro */
+}
+
+/* Estilos para los span */
+span {
+    font-size: 12px;
+    color: #999999;  /* Texto gris medio */
+    display: block;
+    margin: 10px 0;
+}
+
+/* Estilos para los enlaces */
+a {
+    color: #1e2a38;  /* Gris oscuro tirando a azul */
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+}
+
+a:hover {
+    color: #0e1a28;  /* Un gris más oscuro para hover */
+    transform: scale(1.02);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Estilos para los botones */
+button {
+    border-radius: 20px;
+    border: 1px solid #1e2a38;  /* Borde gris oscuro */
+    background-color: #1e2a38;  /* Fondo gris oscuro tirando a azul */
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in, background-color 0.3s ease;
+    margin: 10px;
+    cursor: pointer;
+}
+
+button#loginButton:hover {
+    background-color: #0e1a28;  /* Fondo más oscuro en hover */
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Estilos para los formularios */
+form {
+    background-color: #ffffff;  /* Fondo blanco */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 50px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para los contenedores de input con iconos */
+.input-container {
+    position: relative;
+    width: 100%;
+    margin: 12px 0;
+}
+
+.input-container .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999999;  /* Color gris medio */
+    font-size: 1.2rem;
+}
+
+/* Estilos para los inputs */
+input {
+    background-color: #f2f2f2;  /* Fondo gris claro */
+    border: 1px solid #ddd;
+    padding: 12px 15px 12px 40px;
+    margin: 8px 0;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+input:hover {
+    background-color: #e6e6e6;  /* Un gris más oscuro en hover */
+}
+
+input:focus {
+    outline: none;
+    border-color: #1e2a38;  /* Borde gris oscuro tirando a azul al hacer foco */
+    background-color: #ffffff;  /* Fondo blanco al hacer foco */
+}
+
+/* Estilos para el contenedor principal */
+.container {
+    background-color: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1), 
+                0 10px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    width: 500px;
+    max-width: 100%;
+    min-height: 480px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Estilos para el contenedor social */
+.social-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.social-container a {
+    border: 1px solid #dddddd;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    height: 40px;
+    width: 40px;
+    color: #666666;  /* Gris medio */
+    font-size: 1.2rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-container a:hover {
+    transform: scale(1.1);
+    color: #1e2a38;  /* Gris oscuro tirando a azul */
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        height: auto;
+    }
+
+    form {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 13px;
+        padding: 10px 35px;
+    }
+}

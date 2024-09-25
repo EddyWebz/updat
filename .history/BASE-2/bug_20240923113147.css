@@ -1,0 +1,118 @@
+/* Estilos generales */
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f7f7;  /* Fondo gris claro */
+    color: #000;  /* Texto negro */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;  /* Centrar el contenido horizontalmente */
+}
+
+/* Contenedor principal */
+.container {
+    width: 100%;
+    max-width: 1200px;  /* Ancho máximo en pantallas grandes */
+    margin: 0 auto;  /* Centramos el contenedor */
+    padding: 20px;
+}
+
+/* Títulos */
+h1, h2 {
+    color: #1a1a1a;  /* Títulos en gris muy oscuro, casi negro */
+    font-weight: 500;  /* Un poco más de peso que el 400 anterior */
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+h1 {
+    font-size: 2em;  /* Un poco más grande para jerarquía */
+    border-bottom: 2px solid #e5e5e5;  /* Línea inferior para resaltar */
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #666;  /* Color gris medio para que no compita con h1 */
+    margin-bottom: 10px;
+}
+
+/* Contenedor general del formulario */
+form {
+    background-color: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;  /* Ajuste del ancho del formulario */
+    border: 1px solid #e5e5e5;
+}
+
+/* Input y select */
+input[type="email"], input[type="password"], select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+input[type="email"]:focus, input[type="password"]:focus, select:focus {
+    outline: none;
+    border-color: #0078d4;  /* Color de borde azul claro al hacer foco */
+    box-shadow: 0 0 4px rgba(0, 120, 212, 0.3);
+}
+
+/* Botones */
+button {
+    background-color: #333;  /* Botón gris oscuro */
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #000;  /* Botón negro al hacer hover */
+}
+
+/* Contenedor de selección de usuario */
+#select-user {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    font-size: 1em;
+}
+
+/* Botón de cerrar sesión */
+button#logout-button {
+    background-color: #d83b01;  /* Rojo oscuro para cerrar sesión */
+}
+
+button#logout-button:hover {
+    background-color: #a22c01;
+}
+
+/* Ajuste de contenedores y espaciados */
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.icon {
+    margin-right: 10px;
+    color: #666;  /* Color gris para los iconos */
+    font-size: 1.2em;
+}

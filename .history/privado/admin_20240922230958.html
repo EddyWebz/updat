@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Actualizar Datos</title>
+    <link rel="stylesheet" href="/bug.css">
+</head>
+<body>
+    <h1>Panel de Administración</h1>
+    <h2>Actualizar Correo y Contraseña</h2>
+
+       <form id="admin-update-form">
+        <label for="email">Nuevo Correo:</label>
+        <!-- Agregamos placeholder y nos aseguramos de que el valor esté vacío -->
+        <input type="email" id="email" name="email" placeholder="Ingrese nuevo correo" autocomplete="off" required>
+
+        <label for="password">Nueva Contraseña:</label>
+        <!-- Agregamos placeholder y nos aseguramos de que el valor esté vacío -->
+        <input type="password" id="password" name="password" placeholder="Ingrese nueva contraseña" autocomplete="off" required>
+
+        <button type="submit">Actualizar</button>
+    </form>
+    
+    <button id="logout-button">Cerrar sesión</button>
+
+    <script src="/bug.js"></script>
+</body>
+</html>

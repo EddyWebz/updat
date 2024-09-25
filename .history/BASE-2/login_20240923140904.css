@@ -1,0 +1,189 @@
+/* Importación de la fuente Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Reseteo de box-sizing para todos los elementos */
+* {
+    box-sizing: border-box;
+}
+
+/* Estilos básicos para el cuerpo */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0 15px; /* Añadimos padding lateral para móviles */
+    transition: all 0.3s ease;
+}
+
+/* Estilos para el título principal */
+h1 {
+    font-weight: bold;
+    margin-top: 20px; /* Ajustamos el margen superior */
+    color: #333333;
+    font-size: 2rem; /* Tamaño de fuente adaptable */
+    text-align: center; /* Centramos el título */
+}
+
+/* Efecto ondulación en el contenedor */
+.container {
+    background-color: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 
+                0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 500px;
+    max-width: 100%;
+    min-height: 480px;
+    padding: 20px;
+    transition: all 0.5s ease; /* Transición suave para el efecto ondulación */
+}
+
+/* Efecto de ondulación al pasar el mouse */
+.container:hover {
+    transform: scale(1.02) rotate(-1deg); /* Escalado y rotación suave */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); /* Aumenta la sombra para darle más profundidad */
+    background: linear-gradient(135deg, #f9f9f9, #e6e6e6); /* Leve cambio de fondo para simular un efecto de luz */
+    transition: all 0.5s ease-in-out; /* Transición suave para el efecto */
+}
+
+/* Efecto adicional de ondulación */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0));
+    opacity: 0;
+    transform: translateX(-50%) translateY(-50%) scale(0);
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.container:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+}
+
+/* Estilos para el contenedor social */
+.social-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Social icons styling */
+.social-container a {
+    margin: 0 10px;
+    color: #666;
+    font-size: 24px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-container a:hover {
+    color: #2ab7a9;
+    transform: scale(1.2);
+}
+
+/* Estilos para los botones */
+button {
+    border-radius: 20px;
+    border: 1px solid #2ab7a9;
+    background-color: #2ab7a9;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in, background-color 0.3s ease;
+    margin: 10px;
+}
+
+button#loginButton:hover {
+    background-color: #228f80;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Estilos para los formularios */
+form {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 50px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Inputs con íconos */
+.input-container {
+    position: relative;
+    width: 100%;
+    margin: 12px 0;
+}
+
+.input-container .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666666;
+    font-size: 1.2rem;
+}
+
+input {
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    padding: 12px 15px 12px 40px;
+    margin: 8px 0;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+input:hover {
+    background-color: #eaeaea;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2ab7a9;
+    background-color: #fff;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        height: auto;
+    }
+
+    form {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 13px;
+        padding: 10px 35px;
+    }
+}

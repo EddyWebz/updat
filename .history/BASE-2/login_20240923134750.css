@@ -1,0 +1,122 @@
+/* General body styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container for the form */
+.container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Form container */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Social container for social icons */
+.social-container {
+    margin: 20px 0;
+}
+
+/* Social icons styling */
+.social-container a {
+    margin: 0 10px;
+    color: #666;
+    font-size: 24px;
+    transition: color 0.3s ease;
+}
+
+.social-container a:hover {
+    color: #2ab7a9;
+}
+
+/* Input container with icon */
+.input-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+/* Icon in the input */
+.icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+/* Input fields */
+input {
+    width: 100%;
+    padding: 12px 15px 12px 40px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    transition: background-color 0.3s ease;
+}
+
+input:focus {
+    background-color: #eaeaea;
+    outline: none;
+}
+
+/* Button styling */
+button {
+    background-color: #2ab7a9;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #228f80;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Link styling */
+a {
+    color: #2ab7a9;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive styling for mobile screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .social-container a {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,328 @@
+/* Importación de la fuente Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Reseteo de box-sizing para todos los elementos */
+* {
+    box-sizing: border-box; /* Asegura que el padding y el borde se incluyan en el tamaño total de los elementos */
+}
+
+/* Estilos básicos para el cuerpo */
+body {
+    font-family: 'Roboto', sans-serif; /* Establece la fuente a Roboto */
+    background: #ffffff; /* Fondo blanco */
+    display: flex; /* Uso de flexbox para centrar el contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Altura completa de la ventana */
+    margin: 0; /* Elimina el margen predeterminado */
+}
+
+/* Estilos para el título principal */
+h1 {
+    font-weight: bold; /* Negrita */
+    margin-top: 40px; /* Sin margen */
+    color: #333333; /* Texto oscuro */
+}
+
+/* Estilos para los párrafos */
+p {
+    font-size: 14px; /* Tamaño de fuente */
+    font-weight: 100; /* Fuente fina */
+    line-height: 20px; /* Altura de línea */
+    margin: 20px 0 30px; /* Márgenes superiores e inferiores */
+    color: #333333; /* Texto oscuro */
+}
+
+/* Estilos para los span */
+span {
+    font-size: 12px; /* Tamaño de fuente */
+    color: #333333; /* Texto oscuro */
+}
+
+/* Estilos para los enlaces */
+a {
+    color: #2ab7a9; /* Color del texto del enlace */
+    font-size: 14px; /* Tamaño de fuente */
+    text-decoration: none; /* Sin subrayado */
+    margin: 15px 0; /* Márgenes superiores e inferiores */
+}
+
+a:hover {
+    color: #228f80; /* Cambia el color del texto en hover */
+    transform: scale(1.02); /* Aumenta ligeramente el tamaño en hover */
+    transition: transform 0.2s ease, color 0.2s ease; /* Transición suave */
+}
+
+
+/* Estilos para los botones */
+button {
+    border-radius: 20px; /* Bordes redondeados */
+    border: 1px solid #2ab7a9; /* Borde verde turquesa */
+    background-color: #2ab7a9; /* Fondo verde turquesa */
+    color: #ffffff; /* Texto blanco */
+    font-size: 12px; /* Tamaño de fuente */
+    font-weight: bold; /* Negrita */
+    padding: 12px 45px; /* Padding interno */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    transition: transform 80ms ease-in, background-color 0.3s ease; /* Transición suave */
+    margin: 10px; /* Margen alrededor del botón */
+}
+
+/* Hover en el botón de Iniciar Sesión */
+button#loginButton:hover {
+    background-color: #228f80; /* Fondo más oscuro en hover */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño en hover */
+}
+
+/* Hover en el botón de Regístrate */
+button#switchToSignUp:hover {
+    background-color: #228f80; /* Fondo más oscuro en hover */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño en hover */
+    color: #ffffff; /* Cambia el color del texto a blanco */
+}
+
+button:hover {
+    background-color: #228f80; /* Fondo más verdoso en hover */
+}
+
+button:active {
+    transform: scale(0.95); /* Efecto de clic */
+}
+
+button:focus {
+    outline: none; /* Sin borde de enfoque */
+}
+
+/* Estilos para los botones fantasmas */
+button.ghost {
+    background-color: transparent; /* Fondo transparente */
+    border-color: #ffffff; /* Borde blanco */
+}
+
+button.ghost:hover {
+    background-color: #ffffff; /* Fondo blanco en hover */
+    color: #2ab7a9; /* Texto verde turquesa */
+}
+
+/* Estilos para los formularios */
+form {
+    background-color: #ffffff; /* Fondo blanco */
+    display: flex; /* Flexbox */
+    flex-direction: column; /* Dirección de columna */
+    align-items: center; /* Alinear al centro */
+    padding: 0 50px; /* Padding interno */
+    height: 100%; /* Altura completa */
+    text-align: center; /* Texto centrado */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+/* Estilos para los contenedores de input con iconos */
+.input-container {
+    position: relative; /* Posicionamiento relativo */
+    width: 100%; /* Ancho completo */
+    margin: 8px 0; /* Márgenes superior e inferior */
+}
+
+.input-container .icon {
+    position: absolute; /* Posicionamiento absoluto */
+    left: 10px; /* Alineado a la izquierda */
+    top: 50%; /* Centrado verticalmente */
+    transform: translateY(-50%); /* Alineado centrado */
+    color: #666666; /* Color de icono */
+}
+
+/* Estilos para los inputs */
+input {
+    background-color: #eeeeee; /* Fondo gris claro */
+    border: none; /* Sin borde */
+    padding: 12px 15px 12px 40px; /* Padding interno con espacio para el icono */
+    margin: 8px 0; /* Margen alrededor */
+    width: 100%; /* Ancho completo */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+input:hover {
+    background-color: #e0e0e0; /* Fondo más oscuro en hover */
+}
+
+input:focus {
+    outline: none; /* Sin borde de enfoque */
+    background-color: #dddddd; /* Fondo más oscuro en enfoque */
+}
+
+/* Estilos para el contenedor principal */
+.container {
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 30px; /* Bordes redondeados */
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 
+                0 10px 10px rgba(0, 0, 0, 0.22); /* Sombra */
+    position: relative; /* Posicionamiento relativo */
+    overflow: hidden; /* Ocultar desbordamiento */
+    width: 768px; /* Ancho fijo */
+    max-width: 100%; /* Ancho máximo 100% */
+    min-height: 480px; /* Altura mínima */
+}
+
+/* Estilos para los contenedores de formularios */
+.form-container {
+    position: absolute; /* Posicionamiento absoluto */
+    top: 0; /* Alineado arriba */
+    height: 100%; /* Altura completa */
+    transition: all 0.6s ease-in-out; /* Transición suave */
+}
+
+/* Estilos específicos para el contenedor de inicio de sesión */
+.sign-in-container {
+    left: 0; /* Alineado a la izquierda */
+    width: 50%; /* Ancho 50% */
+    z-index: 2; /* Nivel de apilamiento */
+}
+
+/* Estilos específicos para el contenedor de registro */
+.sign-up-container {
+    left: 0; /* Alineado a la izquierda */
+    width: 50%; /* Ancho 50% */
+    opacity: 0; /* Opacidad 0 */
+    z-index: 1; /* Nivel de apilamiento */
+}
+
+.container.right-panel-active .sign-in-container {
+    transform: translateX(100%); /* Movimiento a la derecha */
+}
+
+.container.right-panel-active .sign-up-container {
+    transform: translateX(100%); /* Movimiento a la derecha */
+    opacity: 1; /* Opacidad 1 */
+    z-index: 5; /* Nivel de apilamiento */
+}
+
+/* Estilos para el contenedor de la capa */
+.overlay-container {
+    position: absolute; /* Posicionamiento absoluto */
+    top: 0; /* Alineado arriba */
+    left: 50%; /* Alineado a la mitad horizontalmente */
+    width: 50%; /* Ancho 50% */
+    height: 100%; /* Altura completa */
+    overflow: hidden; /* Ocultar desbordamiento */
+    transition: transform 0.6s ease-in-out; /* Transición suave */
+    z-index: 100; /* Nivel de apilamiento */
+}
+
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%); /* Movimiento a la izquierda */
+}
+
+/* Estilos para la capa */
+.overlay {
+    background: #2ab7a9; /* Fondo verde turquesa */
+    background-repeat: no-repeat; /* Sin repetición */
+    background-size: cover; /* Cubrir */
+    background-position: 0 0; /* Posicionamiento del fondo */
+    color: #ffffff; /* Texto blanco */
+    position: relative; /* Posicionamiento relativo */
+    left: -100%; /* Desplazamiento inicial */
+    height: 100%; /* Altura completa */
+    width: 200%; /* Ancho doble */
+    transform: translateX(0); /* Sin movimiento */
+    transition: transform 0.6s ease-in-out; /* Transición suave */
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%); /* Movimiento a la derecha */
+}
+
+/* Estilos para los paneles de la capa */
+.overlay-panel {
+    position: absolute; /* Posicionamiento absoluto */
+    display: flex; /* Flexbox */
+    align-items: center; /* Alinear al centro */
+    justify-content: center; /* Justificar al centro */
+    flex-direction: column; /* Dirección de columna */
+    padding: 0 40px; /* Padding interno */
+    text-align: center; /* Texto centrado */
+    top: 0; /* Posicionamiento superior */
+    height: 100%; /* Altura completa */
+    width: 50%; /* Ancho 50% */
+    transform: translateX(0); /* Sin movimiento */
+    transition: transform 0.6s ease-in-out; /* Transición suave */
+}
+
+.overlay-left {
+    transform: translateX(-20%); /* Movimiento a la izquierda */
+}
+
+.container.right-panel-active .overlay-left {
+    transform: translateX(0); /* Sin movimiento */
+}
+
+.overlay-right {
+    right: 0; /* Alineado a la derecha */
+    transform: translateX(0); /* Sin movimiento */
+}
+
+.container.right-panel-active .overlay-right {
+    transform: translateX(20%); /* Movimiento a la derecha */
+}
+
+/* Estilos para el contenedor social */
+.social-container {
+    margin: 20px 0; /* Márgenes superiores e inferiores */
+    
+}
+
+.social-container a {
+    border: 1px solid #dddddd; /* Borde gris claro */
+    border-radius: 50%; /* Bordes redondeados */
+    display: inline-flex; /* Flexbox en línea */
+    justify-content: center; /* Justificar al centro */
+    align-items: center; /* Alinear al centro */
+    margin: 0 5px; /* Márgenes laterales */
+    height: 40px; /* Altura */
+    width: 40px; /* Ancho */
+}
+
+.social-container a:hover {
+    transform: scale(1.1); /* Hace que el icono crezca un poco */
+    color: #000000; /* Cambia el color a negro */
+    transition: transform 0.3s ease, color 0.3s ease; /*animacion de los iconos*/
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+    .container {
+        width: 100%; /* Ancho completo */
+        height: 100%; /* Altura completa */
+    }
+    .overlay-container {
+        display: none; /* Ocultar en móviles */
+    }
+    .form-container {
+        width: 100%; /* Ancho completo */
+        left: 0; /* Alineado a la izquierda */
+        padding-top: 50px; /* Empuja el contenido hacia abajo */
+        background-color: #ffffff; /* Asegura que el color de fondo del padding sea igual al del contenedor */
+    }
+    .sign-in-container {
+        transform: translateX(0); /* Sin movimiento */
+    }
+    .sign-up-container {
+        transform: translateX(100%); /* Movimiento a la derecha */
+    }
+    .container.right-panel-active .sign-in-container {
+        transform: translateX(-100%); /* Movimiento a la izquierda */
+    }
+    .container.right-panel-active .sign-up-container {
+        transform: translateX(0); /* Sin movimiento */
+    }
+}
+
+@media (min-width: 769px) {  /* para quitar buttons de funsion toggle*/
+    .switch-btn {
+        opacity: 0; /* Hace el botón completamente transparente */
+        pointer-events: none; /* Deshabilita la interacción con el botón */
+        visibility: hidden; /* Hace que el botón no ocupe espacio en el flujo del documento */
+    }
+}
