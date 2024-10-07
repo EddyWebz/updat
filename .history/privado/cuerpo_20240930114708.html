@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> <!-- Desactiva el zoom -->
+    <title>Registro Vehicular Veuxor</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/ico/favicon-16x16.png">
+    <link rel="manifest" href="/ico/site.webmanifest"> <!-- Línea para el favicon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilo general */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1d1d1d;
+            color: #b0b0b0;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #2a2a2a;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Overlay que oscurece el fondo */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Transparencia */
+            z-index: 300; /* Debajo del menú desplegable */
+            display: none; /* Oculto por defecto */
+        }
+
+        /* Mostrar el overlay cuando el menú está abierto */
+        .menu-open .overlay {
+            display: block;
+        }
+
+        /* Estilo del menú desplegable */
+        .dropdown-menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1200;
+        }
+
+        .menu-icon {
+            background-color: #1b1b1b;
+            color: #b0b0b0;
+            border: 2px solid #ff8c00;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-icon:hover {
+            background-color: #2a2a2a;
+            transform: scale(1.1);
+        }
+
+        /* Estilo del contenido desplegable */
+        .dropdown-content {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background-color: rgba(27, 27, 27, 0.95);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 900;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .dropdown-content.show {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-content a {
+            color: #b0b0b0;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #2a2a2a;
+        }
+
+        /* Contenedor principal */
+        main {
+            margin: 20px;
+            background-color: #1d1d1d;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Formularios */
+        form label {
+            display: block;
+            margin: 5px 0 2px;
+            color: #bcb8b8;
+        }
+
+        form input, form select, form textarea, form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #1d1d1d;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #121212;
+            color: #b0b0b0;
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+
+        form input:hover, form select:hover, form textarea:hover {
+            background-color: #1f1f1f;
+            border-color: #ff8c00;
+        }
+
+        form input:focus, form select:focus, form textarea:focus {
+            border-color: #ff8c00;
+            box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+            outline: none;
+        }
+
+        form button {
+            background-color: #ff8c00;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        form button:hover {
+            background-color: #d2691e;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="overlay"></div> <!-- Overlay que cubre todo -->
+    <header>
+        <h1>HOTEL VEUXOR</h1>
+    </header>
+
+    <!-- Menú desplegable -->
+    <div class="dropdown-menu">
+        <button class="menu-icon">
+            <i class="fas fa-bars"></i> <!-- Ícono de Font Awesome -->
+        </button>
+        <div class="dropdown-content">
+            <a href="#" id="notifications-link">Notificaciones</a>
+            <a href="#" id="button_config">Configuración</a>
+            <a href="#" id="logout-button">Cerrar Sesión</a>
+            <button id="botonhistor">Historial de Registros</button>
+        </div>
+    </div>
+
+    <main>
+        <section id="registration">
+            <h2>Registro de Vehículo</h2>
+            <form id="vehicleForm" autocomplete="off">
+                <label for="datetime">Fecha y Hora:</label>
+                <input type="datetime-local" id="datetime" name="datetime" required>
+        
+                <!-- Agrupamos marca y modelo -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="brand">Marca:</label>
+                        <input type="text" id="brand" name="brand" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="model">Modelo:</label>
+                        <input type="text" id="model" name="model" required>
+                    </div>
+                </div>
+        
+                <!-- Agrupamos clave y placa -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="clave">Clave:</label>
+                        <input type="text" id="clave" name="clave" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="plate">Placa:</label>
+                        <input type="text" id="plate" name="plate" required>
+                    </div>
+                </div>
+        
+                <!-- Agrupamos color y propietario -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="color">Color:</label>
+                        <input type="text" id="color" name="color" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="owner">Propietario:</label>
+                        <input type="text" id="owner" name="owner" required>
+                    </div>
+                </div>
+        
+                <!-- Noches de estadía queda sola -->
+                <label for="stayNights">Noches de estadía:</label>
+                <select id="stayNights" name="stayNights" required>
+                    <option value="1">1 Noche</option>
+                    <option value="2">2 Noches</option>
+                    <option value="3">3 Noches</option>
+                    <option value="4">4 Noches</option>
+                    <option value="5">5 Noches</option>
+                    <option value="6">6 Noches</option>
+                    <option value="7">7 Noches</option>
+                    <option value="8">8 Noches</option>
+                    <option value="9">9 Noches</option>
+                    <option value="10">10 Noches</option>
+                </select>
+        
+                <!-- Agrupamos habitación y garaje -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="habitacion">Habitación:</label>
+                        <input type="text" id="habitacion" name="habitacion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="garage">Garaje:</label>
+                        <select id="garage" name="garage" required>
+                            <option value="P1">P1</option>
+                            <option value="P2">P2</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <!-- Observaciones e imagen quedan solas -->
+                <label for="observations">Observaciones:</label>
+                <textarea id="observations" name="observations"></textarea>
+        
+                <label for="image">Imagen:</label>
+                <input type="file" id="image" name="image" accept="image/*" multiple required>
+        
+                <button type="submit">Registrar</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuIcon = document.querySelector('.menu-icon');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const overlay = document.querySelector('.overlay');
+            const body = document.body;
+        
+            menuIcon.addEventListener('click', function () {
+                dropdownContent.classList.toggle('show');
+                body.classList.toggle('menu-open'); // Muestra el overlay
+            });
+        
+            // Cierra el menú al hacer clic en el overlay
+            overlay.addEventListener('click', function () {
+                dropdownContent.classList.remove('show');
+                body.classList.remove('menu-open'); // Oculta el overlay
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.2.1/dist/compressor.min.js"></script>
+    <script src="/script.js"></script>
+</body>
+</html>

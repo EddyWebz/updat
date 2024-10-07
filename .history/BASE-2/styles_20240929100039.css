@@ -1,0 +1,710 @@
+/* Estilos generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212; /* Fondo más oscuro */
+    color: #b0b0b0; /* Texto en tono gris claro */
+    line-height: 1.6;
+}
+
+/* Encabezado */
+header {
+    background-color: #1b1b1b; /* Fondo gris oscuro */
+    color: #b0b0b0;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #2a2a2a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Efectos de animación para el título */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes colorShift {
+    0% { color: #cc7a00; } /* Naranja fuerte y apagado */
+    50% { color: #b36800; } /* Marrón anaranjado */
+    100% { color: #cc7a00; }
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-3px); } /* Movimiento más leve */
+    100% { transform: translateY(0); }
+}
+
+header h1 {
+    animation: fadeIn 2s ease-in-out, colorShift 15s infinite, float 10s ease-in-out infinite;
+    color: #cc7a00; /* Naranja fuerte pero sin brillo */
+    font-size: 2.rem;
+    font-weight: 700;
+    text-shadow: none; /* Sin sombras para un tono más mate */
+}
+
+/* Contenedor principal */
+main {
+    margin: 20px;
+    background-color: #1b1b1b;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Formularios */
+form label {
+    display: block;
+    margin: 5px 0 2px;
+    color: #ffffff;
+}
+
+form input, form select, form textarea, form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #121212;
+    color: #b0b0b0;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+form input:hover, form select:hover, form textarea:hover {
+    background-color: #1f1f1f; /* Oscurecer ligeramente el fondo */
+    border-color: #ff8c00; /* Naranja oscuro */
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    border-color: #ff8c00;
+    box-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
+    outline: none;
+}
+
+/* Ajuste específico para el campo de imagen */
+form input[type="file"] {
+    width: auto;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+form button {
+    background-color: #ff8c00;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+form button:hover {
+    background-color: #d2691e;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para los campos que comparten fila */
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+}
+
+@media (max-width: 0px) {
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+}
+
+/* Tarjetas del historial */
+#historyCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta el número de columnas automáticamente */
+    grid-gap: 20px; /* Espaciado entre tarjetas */
+    margin-top: 20px;
+    margin-left: -30px;
+    padding: 20px; /* Añadir padding dentro del contenedor */
+    margin-bottom: 20px; /* Espaciado inferior para no cortar la última tarjeta */
+}
+
+
+.history-card {
+    background-color: #0e0e0e;
+    border: 1px solid #2a2a2a;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    flex-direction: column; /* Asegura que el contenido interno esté bien alineado */
+}
+/* Efecto hover para las tarjetas de historial */
+.history-card:hover {
+    background-color: #181818; /* Cambiar el color de fondo al hacer hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Aumentar la sombra */
+    transform: translateY(-5px); /* Mover ligeramente hacia arriba */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.history-card div {
+    margin-bottom: 5px;
+}
+
+.history-card img {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    margin-right: 10px;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    transition: transform 0.3s;
+}
+
+.history-card img:hover {
+    transform: scale(1.1);
+}
+
+
+ /* Estilos para diferenciar textos fijos y datos */
+ .history-card .fixed-text {
+    font-weight: bold;
+    color: #b0b0b0; /* Cambiar a un color que resalte los textos fijos */
+}
+
+.history-card .data-text {
+    font-weight: normal;
+    color: hsl(0, 0%, 100%); /* Color de los datos traídos de la base de datos */
+}
+
+
+
+@media (max-width: 680px) {
+    header {
+        padding: 20px 0;
+    }
+
+    main {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    form input, form select, form textarea, form button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 15px 0;
+    }
+
+    main {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    form input, form select, form textarea, form button {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 1024px) {
+    #historyCards {
+        grid-template-columns: repeat(3, 1fr); /* Muestra 3 tarjetas en pantallas grandes */
+    }
+}
+
+/* Ajustes para pantallas medianas */
+@media (min-width: 680px) and (max-width: 1024px) {
+    #historyCards {
+        grid-template-columns: repeat(2, 1fr); /* Muestra 2 tarjetas en pantallas medianas */
+    }
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 680px) {
+    #historyCards {
+        grid-template-columns: repeat(1, 1fr); /* Muestra 1 tarjeta en pantallas pequeñas */
+    }
+}
+
+
+/* Estilos para la búsqueda */
+#searchInput {
+    width: calc(100% - 120px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    background-color: #121212;
+    color: #b0b0b0;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+#searchInput:hover {
+    background-color: #1f1f1f; /* Oscurecer ligeramente el fondo */
+    border-color: #ff8c00;
+}
+
+#searchButton {
+    width: 100px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #ff8c00;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#searchButton:hover {
+    background-color: #d2691e;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+#searchResults h3 {
+    color: #ff8c00;
+}
+
+#searchCards .history-card {
+    margin-bottom: 10px;
+}
+
+/* Estilos para el contenedor de tarjetas de búsqueda */
+#searchResults {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta el número de columnas automáticamente */
+    grid-gap: 20px; /* Espaciado entre tarjetas */
+    margin-top: 20px;
+    padding: 20px; /* Añadir padding dentro del contenedor */
+    margin-bottom: 20px; /* Espaciado inferior para no cortar la última tarjeta */
+}
+
+/* Estilos de las tarjetas individuales de búsqueda */
+.search-card {
+    background-color: #0e0e0e;
+    border: 1px solid #2a2a2a;
+    padding: 15px;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    flex-direction: column; /* Asegura que el contenido interno esté bien alineado */
+}
+
+/* Efecto hover para las tarjetas de búsqueda */
+.search-card:hover {
+    background-color: #181818; /* Cambiar el color de fondo al hacer hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Aumentar la sombra */
+    transform: translateY(-5px); /* Mover ligeramente hacia arriba */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.search-card div {
+    margin-bottom: 5px;
+}
+
+
+/* Estilos para las imágenes dentro de las tarjetas de búsqueda */
+.search-card img {
+    width: 60px;
+    height: 60px;
+ 
+    cursor: pointer;
+    margin-right: 10px;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    transition: transform 0.3s;
+}
+
+.search-card img:hover {
+    transform: scale(1.1);
+}
+
+/* Estilos para diferenciar textos fijos y datos */
+.search-card .fixed-text {
+    font-weight: bold;
+    color: #b0b0b0; /* Cambiar a un color que resalte los textos fijos */
+}
+
+.search-card .data-text {
+    font-weight: normal;
+    color: hsl(0, 0%, 100%); /* Color de los datos traídos de la base de datos */
+}
+
+
+
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 680px) {
+    header {
+        padding: 20px 0;
+    }
+
+    main {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    form input, form select, form textarea, form button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 680px) {
+    header {
+        padding: 15px 0;
+    }
+
+    main {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    form input, form select, form textarea, form button {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 1024px) {
+    #searchResults {
+        grid-template-columns: repeat(3, 1fr); /* Muestra 3 tarjetas en pantallas grandes */
+    }
+}
+
+/* Ajustes para pantallas medianas */
+@media (min-width: 680px) and (max-width: 1024px) {
+    #searchResults {
+        grid-template-columns: repeat(2, 1fr); /* Muestra 2 tarjetas en pantallas medianas */
+    }
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 680px) {
+    #searchResults {
+        grid-template-columns: repeat(1, 1fr); /* Muestra 1 tarjeta en pantallas pequeñas */
+    }
+}
+
+
+/* Estilo del menú desplegable */
+.dropdown-menu {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 900;
+}
+
+.menu-icon {
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 2px solid #ff8c00;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.menu-icon:hover {
+    background-color: #2a2a2a;
+    transform: scale(1.1);
+}
+
+.menu-icon.open {
+    transform: rotate(90deg);
+}
+
+/* Estilo del contenido desplegable con animación */
+.dropdown-content {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: rgba(27, 27, 27, 0.95); /* Fondo aún más oscuro */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 900;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease; /* Suave animación */
+    visibility: hidden; /* Asegura que no sea clickeable cuando esté oculto */
+    pointer-events: none; /* Deshabilita la interacción cuando esté oculto */
+}
+
+.dropdown-content.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible; /* Hace el menú visible */
+    pointer-events: auto; /* Habilita la interacción cuando esté visible */
+}
+
+.dropdown-content.hide {
+    opacity: 0;
+    transform: translateY(-10px);
+    visibility: hidden; /* Oculta y hace no clickeable después de la animación */
+    pointer-events: none; /* Deshabilita la interacción cuando esté oculto */
+}
+
+.dropdown-content a {
+    color: #b0b0b0;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #2a2a2a;
+}
+
+/* Estilos del botón de cerrar sesión */
+#logout-button {
+    color: #b0b0b0;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+#logout-button:hover {
+    background-color: #2a2a2a;
+}
+
+
+/* MODO FULL-SCREEN - SECCION HISTORIAL
+/* Botón Historial de Registros MODO NORMAL */
+#botonhistor {
+    background-color: #1b1b1b;  /* Fondo oscuro */
+    color: #b0b0b0;  /* Texto gris claro */
+    border: 2px solid #ff8c00;  /* Borde naranja */
+    padding: 12px 20px;  /* Espaciado interno */
+    border-radius: 6px;  /* Bordes redondeados */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Sombra */
+    margin-bottom: 5px;  /* Añadir separación abajo del botón */
+    transition: background-color 0.4s, color 0.4s, transform 0.4s ease-in-out, box-shadow 0.4s;
+}
+
+#botonhistor:hover {
+    background-color: #ff8c00;  /* Fondo naranja en hover */
+    color: #ffffff;  /* Texto blanco en hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);  /* Sombra más fuerte en hover */
+    transform: scale(1.02);  /* Efecto de agrandar ligeramente */
+
+}
+
+/* SE APLICA MODO FULL SCREEN */
+.fullscreen-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:#121212; /* Fondo oscuro semi-transparente */
+    z-index: 901; /* Colocado detrás del botón y el contenido */
+    display: none; /* Oculto por defecto */
+}
+
+/* Estilo del contenido que se despliega */
+ #historySection  {
+    padding: 20px;
+    background-color: #121212;
+    color: white;
+    display: none; /* Por defecto está oculto */
+    position: fixed;
+    top: 60px; /* Ajuste para no cubrir el botón */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 60px); /* Calculamos el espacio debajo del botón */
+    z-index: 1000; /* Para que aparezca encima del contenido */
+    overflow-y: auto; /* Permitimos el scroll en el contenido si es necesario */
+}
+
+
+/* Deshabilitar el scroll cuando el botón está en pantalla completa */
+body.no-scroll {
+    overflow: hidden;
+}
+
+
+/* Estilo del select de fechas */
+#dateOption {
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 1px solid #ff8c00;
+    padding: 10px;
+    border-radius: 6px;
+    width: 40%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+#dateOption:hover {
+    background-color: #2a2a2a;
+    border-color: #ff8c00;
+}
+
+
+/* Ajustes para los campos personalizados */
+#customDate {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 60%; /* El ancho general del contenedor */
+}
+
+#customDate input {
+    display: block;
+    background-color: #1b1b1b;
+    color: #b0b0b0;
+    border: 1px solid #ff8c00;
+    padding: 8px;
+    border-radius: 6px;
+    width: 100%; /* Los inputs ocupan todo el ancho del contenedor */
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+
+
+
+/* Boton principal historial apertura / { campo fecha }*/
+@media only screen and (max-width: 768px) {
+    #botonhistor {
+        padding: 8px 14px; /* Reducimos el tamaño del padding un 30% */
+        font-size: 11px; /* Reducimos el tamaño del texto un 30% */
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Ajustamos la sombra */
+        top: 17px; /* Mueve el botón 7px hacia abajo */
+        left: 2px; /* Mueve el botón 2px hacia la derecha */
+    }
+
+/* estylos de la seccion fecha */
+    
+    #customDate {
+        width: 80%; /* En móviles, que ocupe casi todo el ancho */
+        flex-direction: column; /* Colocar los campos en columnas */
+        justify-content: center; /* Alinear los elementos en el centro */
+        gap: 10px;
+    }
+
+    #customDate input {
+        width: 90%; /* En móviles, los campos deben ocupar todo el ancho del contenedor */
+    }
+}
+
+
+/* Estilo general del scrollbar */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra de desplazamiento */
+}
+
+/* Estilo de la parte deslizante del scrollbar */
+::-webkit-scrollbar-thumb {
+    background-color: #ff8c00; /* Color de la barra deslizante */
+    border-radius: 10px; /* Bordes redondeados */
+    border: 2px solid #1b1b1b; /* Borde que rodea la barra deslizante */
+}
+
+/* Estilo cuando se pasa el cursor sobre el scrollbar */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #ffb74d; /* Cambia el color cuando se hace hover */
+}
+
+/* Estilo del track del scrollbar (la pista por donde se desplaza la barra) */
+::-webkit-scrollbar-track {
+    background-color: #2a2a2a; /* Color del track */
+    border-radius: 10px; /* Bordes redondeados */
+}
+ 
+
+/* Contenedor de la imagen en pantalla completa */
+.fullscreen-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    cursor: pointer;
+}
+.fullscreen-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Contenedor de los puntos de navegación */
+.dots-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 1200;
+}
+
+/* Estilo de cada punto */
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Punto activo */
+.dot.active {
+    background-color: rgba(255, 255, 255, 1); /* Cambiar a blanco cuando esté activo */
+}
+
+
+
+
+

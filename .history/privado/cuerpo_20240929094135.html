@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> <!-- Desactiva el zoom -->
+    <title>Registro Vehicular Veuxor</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/ico/favicon-16x16.png">
+    <link rel="manifest" href="/ico/site.webmanifest"> <!-- Línea para el favicon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>HOTEL VEUXOR</h1>
+    </header>
+
+    <!-- Menú desplegable -->
+    <div class="dropdown-menu">
+        <button class="menu-icon">
+            <i class="fas fa-bars"></i> <!-- Ícono de Font Awesome -->
+        </button>
+        <div class="dropdown-content">
+            <a href="#" id="notifications-link">Notificaciones</a>
+            <a href="#" id="button_config">Configuración</a>
+            <a href="#" id="logout-button">Cerrar Sesión</a>
+        </div>
+    </div>
+    
+    <main>
+        <section id="registration">
+            <h2>Registro de Vehículo</h2>
+            <form id="vehicleForm" autocomplete="off">
+                <label for="datetime">Fecha y Hora:</label>
+                <input type="datetime-local" id="datetime" name="datetime" required>
+        
+                <!-- Agrupamos marca y modelo -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="brand">Marca:</label>
+                        <input type="text" id="brand" name="brand" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="model">Modelo:</label>
+                        <input type="text" id="model" name="model" required>
+                    </div>
+                </div>
+        
+                <!-- Agrupamos clave y placa -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="clave">Clave:</label>
+                        <input type="text" id="clave" name="clave" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="plate">Placa:</label>
+                        <input type="text" id="plate" name="plate" required>
+                    </div>
+                </div>
+        
+                <!-- Agrupamos color y propietario -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="color">Color:</label>
+                        <input type="text" id="color" name="color" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="owner">Propietario:</label>
+                        <input type="text" id="owner" name="owner" required>
+                    </div>
+                </div>
+        
+                <!-- Noches de estadía queda sola -->
+                
+                <label for="stayNights">Noches de estadía:</label>
+                <select id="stayNights" name="stayNights" required>
+                    <option value="1">1 Noche</option>
+                    <option value="2">2 Noches</option>
+                    <option value="3">3 Noches</option>
+                    <option value="4">4 Noches</option>
+                    <option value="5">5 Noches</option>
+                    <option value="6">6 Noches</option>
+                    <option value="7">7 Noches</option>
+                    <option value="8">8 Noches</option>
+                    <option value="9">9 Noches</option>
+                    <option value="10">10 Noches</option>
+                    <option value="11">11 Noches</option>
+                    <option value="12">12 Noches</option>
+                    <option value="13">13 Noches</option>
+                    <option value="14">14 Noches</option>
+                    <option value="15">15 Noches</option>
+                </select>
+        
+                <!-- Agrupamos habitación y garaje -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="habitacion">Habitación:</label>
+                        <input type="text" id="habitacion" name="habitacion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="garage">Garaje:</label>
+                        <select id="garage" name="garage" required>
+                            <option value="P1">P1</option>
+                            <option value="P2">P2</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <!-- Observaciones e imagen quedan solas -->
+                <label for="observations">Observaciones:</label>
+                <textarea id="observations" name="observations"></textarea>
+        
+                <label for="image">Imagen:</label>
+                <input type="file" id="image" name="image" accept="image/*" multiple required>
+        
+                <button type="submit">Registrar</button>
+            </form>
+        </section>
+        
+        
+            <button id="botonhistor">Historial de Registros</button>
+        
+            <div id="historySection" style="display: none;">
+                <!-- Filtro por Fechas -->
+<!-- Opciones de Fechas -->
+<select id="dateOption" name="dateOption">
+    <option value="7days">Últimos 7 días</option>
+    <option value="15days">Últimos 15 días</option>
+    <option value="1month" selected>Último mes</option>
+    <option value="2months">Últimos 2 meses</option>
+    <option value="manual">Personalizado</option>
+</select>
+
+<!-- Campos para el rango de fechas personalizado -->
+<div id="customDate" style="display: none;">  <!-- Inicialmente oculto -->
+    <label for="startDate">Fecha de inicio:</label>
+    <input type="date" id="startDate" name="startDate">
+    
+    <label for="endDate">Fecha de fin:</label>
+    <input type="date" id="endDate" name="endDate">
+</div>
+
+                <section id="history">
+                    <input type="text" id="searchInput" placeholder="Buscar por nombre o placa">
+                    <button id="searchButton">Buscar</button>
+                    <button id="toggleHistoryBtn">Mostrar Historial</button>
+                    <div id="historyContent" style="display: none;">
+                        <div id="historyCards" ></div>
+                    </div>
+                    <div id="searchCards" style="display: none;">
+                        <div id="searchResults" ></div>
+                    </div>
+                </section>
+            </div>
+        
+        
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.2.1/dist/compressor.min.js"></script>
+    <script src="/script.js"></script>
+</body>
+</html>

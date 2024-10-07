@@ -1,0 +1,113 @@
+/* SECCION EVENTOS */
+#eventos-container {
+    margin: 10px;
+    padding: 0;
+    background-color: #2a2a2a;  /* Fondo gris más claro para mayor contraste */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);  /* Sombra más notable */
+    overflow: hidden;
+}
+
+/* Estilo compacto de cada evento */
+.evento {
+    margin-bottom: 12px;
+    padding: 20px;
+    background-color: #1e1e1e;  /* Fondo ligeramente más claro */
+    border-left: 5px solid #ffab40;  /* Tono de naranja más suave */
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);  /* Sombra */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Estilo cuando se selecciona un evento */
+.evento.selected {
+    background-color: #ffab40;  /* Resaltar tarjeta seleccionada */
+    color: #000000;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);  /* Resaltar más la tarjeta seleccionada */
+}
+
+/* Opacidad reducida para eventos no seleccionados */
+.evento.dim {
+    opacity: 0.3;  /* Reducir opacidad de las tarjetas no seleccionadas */
+}
+
+/* Estilo cuando se pasa el ratón sobre un evento */
+.evento:hover {
+    transform: scale(1.03);
+    z-index: 10;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);  /* Sombra más marcada al hacer hover */
+}
+
+/* Ajustes en la fila informativa */
+.evento .informacion {
+    font-weight: 700;
+    color: #ffab40;  /* Naranja vibrante */
+    margin-bottom: 10px;
+    font-size: 16px;  /* Tamaño de fuente para mayor legibilidad */
+    display: block;
+}
+
+/* Ajustes en la fila de ejecución */
+.evento .accion {
+    color: #e0e0e0;  /* Texto más claro */
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+/* Ajustes en la fecha */
+.evento .fecha {
+    text-align: right;
+    color: #cccccc;
+    font-size: 12px;
+    margin-top: 12px;
+    font-style: italic;
+}
+
+/* Línea separadora más sutil */
+.evento hr {
+    border: 0;
+    height: 1px;
+    background: #444444;  /* Color más oscuro para separar sin sobresalir demasiado */
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+/* Títulos con más espacio para mejor jerarquía visual */
+#contenido-nosotros h2 {
+    text-align: center;
+    font-size: 22px;
+    color: #ffab40;  /* Usamos el mismo tono de naranja */
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+/* Ajustes en el espaciado general */
+#contenido-nosotros {
+    margin-top: 0px;
+    padding: 20px;
+    background-color: #2a2a2a;  /* Fondo más claro para contraste */
+    border-radius: 12px;
+    max-width: 100%; 
+}
+
+/* Responsivo para móviles */
+@media (max-width: 600px) {
+    .evento {
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+
+    .evento .informacion {
+        font-size: 14px;
+    }
+
+    .evento .accion {
+        font-size: 12px;
+    }
+
+    .evento .fecha {
+        font-size: 10px;
+    }
+}

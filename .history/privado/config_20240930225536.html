@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Configuraciones</title>
+    <link rel="stylesheet" href="/config.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/ico/favicon-16x16.png">
+    <link rel="manifest" href="/ico/site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <h1>Configuraciones</h1>
+    </header>
+
+    <!-- Menú desplegable para móviles -->
+    <div class="dropdown-menu">
+        <button class="menu-icon">
+            <i class="fas fa-bars"></i> <!-- Ícono de Font Awesome -->
+        </button>
+        <div class="dropdown-content">
+            <a href="#" id="home-link">Inicio</a>
+            <a href="#" id="notifications-link">Notificaciones</a>
+            <a href="#" id="editarRegistros">Editar Registros</a>
+            <a href="#" id="configSesion">Configuración de Sesión</a>
+            <a href="#" id="sobreNosotros">Historial de eventos</a>
+            <a href="#" id="logout-button">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <!-- Secciones de contenido ocultas inicialmente -->
+    <div id="contenido-editar" style="display: block;">
+        <h2>Editar Registros</h2>
+        <!-- Opciones de Fechas -->
+        <select id="dateOption" name="dateOption">
+    <option value="7days">Últimos 7 días</option>
+    <option value="15days">Últimos 15 días</option>
+    <option value="1month" selected>Último mes</option>
+    <option value="2months">Últimos 2 meses</option>
+    <option value="manual">Personalizado</option>
+        </select>
+
+        <!-- Campos para el rango de fechas personalizado -->
+        <div id="customDate" style="display: none;">  <!-- Inicialmente oculto -->
+    <label for="startDate">Fecha de inicio:</label>
+    <input type="date" id="startDate" name="startDate">
+    
+    <label for="endDate">Fecha de fin:</label>
+    <input type="date" id="endDate" name="endDate">
+        </div>
+            <!-- Campos formuladrio de busqueda -->
+                <section id="history">
+                    <input type="text" id="searchInput" placeholder="Buscar por nombre o placa">
+                    <button id="searchButton">Buscar</button>
+                    <div id="searchCards" style="display: none;">
+                        <div id="searchResults" ></div>
+                    </div>
+                    
+                </section>
+                <!-- Campos edicion y actualizacion de registros -->
+        <div id="contenido-update" style="display: none;">
+    <h2>Editar Vehículo</h2>
+    <!-- Formulario de edición -->
+    <form id="vehicleEditForm">
+        <input type="hidden" id="vehicleId"> <!-- Campo oculto para el ID del vehículo -->
+        <label for="editBrand">Marca:</label>
+        <input type="text" id="editBrand" name="brand" required>
+
+        <label for="editModel">Modelo:</label>
+        <input type="text" id="editModel" name="model" required>
+
+        <label for="editClave">Clave:</label>
+        <input type="text" id="editClave" name="clave" required>
+
+        <label for="editPlate">Placa:</label>
+        <input type="text" id="editPlate" name="plate" required>
+
+        <label for="editColor">Color:</label>
+        <input type="text" id="editColor" name="color" required>
+
+        <label for="editOwner">Propietario:</label>
+        <input type="text" id="editOwner" name="owner" required>
+
+        <label for="editStayNights">Noches de estadía:</label>
+        <select id="editStayNights" name="stayNights" required>
+            <option value="1">1 Noche</option>
+            <option value="2">2 Noches</option>
+            <option value="3">3 Noches</option>
+            <option value="4">4 Noches</option>
+            <option value="5">5 Noches</option>
+            <option value="6">6 Noches</option>
+            <option value="7">7 Noches</option>
+            <option value="8">8 Noches</option>
+            <option value="9">9 Noches</option>
+            <option value="10">10 Noches</option>
+            <option value="11">11 Noches</option>
+            <option value="12">12 Noches</option>
+            <option value="13">13 Noches</option>
+            <option value="14">14 Noches</option>
+            <option value="15">15 Noches</option>
+            <!-- Añadir más opciones si es necesario -->
+        </select>
+
+        <label for="editHabitacion">Habitación:</label>
+        <input type="text" id="editHabitacion" name="habitacion" required>
+
+        <label for="editGarage">Garaje:</label>
+        <select id="editGarage" name="garage" required>
+            <option value="P1">P1</option>
+            <option value="P2">P2</option>
+        </select>
+
+        <label for="editObservations">Observaciones:</label>
+        <textarea id="editObservations" name="observations"></textarea>
+        <!-- Sección para mostrar las imágenes actuales -->
+        <div id="currentImagePreview" class="image-preview-container"></div>
+        <label for="editImage">Imagen:</label>
+        <input type="file" id="editImage" name="image" accept="image/*" multiple>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+        </div>
+
+    
+    </div>
+
+    <div id="contenido-sesion" style="display: none;">
+       
+        <div id="contenido-subusuarios">
+            <h2>Crear Sub-usuario</h2>
+            <form id="subUserForm">
+                <label for="subUserName">Nombre:</label>
+                <input type="text" id="subUserName" name="subUserName" required>
+        
+                <label for="subUserEmail">Correo :</label>
+                <input type="email" id="subUserEmail" name="subUserEmail" required>
+        
+                <label for="subUserPassword">Contraseña:</label>
+                <input type="password" id="subUserPassword" name="subUserPassword" required>
+        
+                <button type="submit">Crear Sub-usuario</button>
+            </form>
+        
+            <h2>Eliminar Sub-usuario</h2>
+              <!-- Botón para mostrar/ocultar la lista -->
+        <button id="toggleSubUserList" onclick="toggleSubUserList()">Mostrar Sub-usuarios</button>
+        <div id="subUserList" style="display: none;"></div> <!-- Sub-usuarios ocultos al cargar -->
+        </div>
+        
+        
+    </div>
+
+    <div id="contenido-nosotros" style="display: none;">
+            <h2>Historial de eventos</h2>  
+
+            <div id="customDate">
+                <label for="customStartDate">Fecha de inicio:</label>
+                <input type="date" id="customStartDate" name="customStartDate" required>
+        
+                <label for="customEndDate">Fecha de fin:</label>
+                <input type="date" id="customEndDate" name="customEndDate" required>
+        
+                <button id="applyCustomFilter">Aplicar Filtro</button>
+            </div>
+        
+
+        <div id="eventos-container">
+            <!-- Aquí se mostrarán los eventos -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.0.7/compressor.min.js"></script>
+    <script src="/config.js"></script>
+    <script src="/configS.js"></script> <!-- Nuevo script -->
+    <script src="/event.js"></script>
+</body>
+</html>
+
+
