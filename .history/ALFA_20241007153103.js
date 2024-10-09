@@ -132,31 +132,28 @@ router.get('/search', verifyJWT, async (req, res) => {
     const query = req.query.query;
     let { start, end } = req.query;
 
-    // Convertir las fechas de inicio y fin de la hora local a UTC
+    // Convertir las fechas de inicio y fin de la hora local (America/Guayaquil) a UTC
     const startUTC = moment.tz(start + ' 00:00:00', 'America/Guayaquil').utc().format('YYYY-MM-DD HH:mm:ss');
     const endUTC = moment.tz(end + ' 23:59:59', 'America/Guayaquil').utc().format('YYYY-MM-DD HH:mm:ss');
 
-    console.log(`Buscando vehículos para user_id: ${user_id} con query "${query}" desde ${startUTC} hasta ${endUTC}`);
+    console.log(`Buscando vehículos para user_id: ${user_id} con query "${query}" desde ${start} hasta ${end}`);
 
     try {
         const [results] = await connection.query(
             'SELECT * FROM vehiculos WHERE (owner LIKE ? OR plate LIKE ?) AND user_id = ? AND datetime BETWEEN ? AND ? ORDER BY datetime DESC',
-            [`%${query}%`, `%${query}%`, user_id, startUTC, endUTC]
+            [`%${query}%`, `%${query}%`, user_id, start, end]
         );
         console.log('Resultados de búsqueda:', results.length, 'registros encontrados');
 
         const vehicles = results.map(vehicle => {
-            // Convertir de UTC a la hora local (America/Guayaquil)
             vehicle.datetime = moment.utc(vehicle.datetime).tz('America/Guayaquil').format('YYYY-MM-DD HH:mm:ss');
 
-            // Manejo de imágenes
             let images = [];
             try {
                 images = typeof vehicle.images === 'string' && vehicle.images.startsWith('[') ? JSON.parse(vehicle.images) : [vehicle.images];
             } catch (e) {
                 images = [vehicle.images];
             }
-
             return { ...vehicle, images };
         });
 
@@ -167,8 +164,6 @@ router.get('/search', verifyJWT, async (req, res) => {
     }
 });
 
-
-// Ruta para obtener datos de un vehículo por placa filtrado por user_id
 // Ruta para obtener datos de un vehículo por placa filtrado por user_id
 router.get('/vehicle/:plate', verifyJWT, async (req, res) => {
     const user_id = req.userId;
@@ -179,7 +174,7 @@ router.get('/vehicle/:plate', verifyJWT, async (req, res) => {
         const [results] = await connection.query('SELECT * FROM vehiculos WHERE plate = ? AND user_id = ?', [plate, user_id]);
 
         if (results.length > 0) {
-            // No sumar horas aquí, devolver la fecha/hora tal cual
+            results[0].datetime = new Date(new Date(results[0].datetime).getTime() + 60 * 60 * 1000);
             console.log('Vehículo encontrado:', results[0]);
             res.json(results[0]);
         } else {
@@ -191,6 +186,5 @@ router.get('/vehicle/:plate', verifyJWT, async (req, res) => {
         res.status(500).json({ success: false, message: 'Error en el servidor' });
     }
 });
-
 
 module.exports = router;

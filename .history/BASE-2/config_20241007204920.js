@@ -164,6 +164,26 @@ const searchButton = document.getElementById('searchButton');
 const searchResults = document.getElementById('searchResults');
 const searchCards = document.getElementById('searchCards');
 
+
+// ---- NUEVO CÓDIGO: BOTÓN MOSTRAR HISTORIAL ----
+const historyButton = document.getElementById('historyButton');
+historyButton.addEventListener('click', async () => {
+    const isAuthenticated = await checkAuthentication();  // Verificar si está autenticado
+    if (!isAuthenticated) return;  // Si no está autenticado, detener ejecución
+
+    // Obtener la fecha actual
+    const today = new Date();
+    
+    // Formatear la fecha actual a "YYYY-MM-DD"
+    const currentDate = today.toISOString().split('T')[0];
+
+    // Definir el rango de tiempo desde las 00:00 hasta las 23:59 del día actual
+    const startDate = `${currentDate}T00:00:00`;
+    const endDate = `${currentDate}T23:59:59`;
+
+    // Ejecutar búsqueda con el rango de tiempo del día actual
+    executeSearch('', startDate, endDate);
+});
 //VARIABLE DE TRADUCCION 
 const translations = {
     datetime: 'Fecha y hora',
@@ -232,27 +252,27 @@ function formatDate(dateString) {
 // ---- UNIFICACIÓN DEL SISTEMA DE BÚSQUEDA Y MOSTRAR DETALLES ----
 // Función que maneja la búsqueda y el refresco de la lista de vehículos
 searchButton.addEventListener('click', async () => {
-    isSearchActive = true;  // Marcar la búsqueda como activa
-    isHistoryActive = false;  // Desmarcar el historial como activo
     const isAuthenticated = await checkAuthentication();  // Verificar si está autenticado antes de la búsqueda
     if (!isAuthenticated) return;  // Detener la ejecución si no está autenticado
 
+    executeSearch();
 });
-function executeSearch() {
-    const query = searchInput.value.trim();
-    const { startDate, endDate } = getSelectedDates();  // Obtener las fechas seleccionadas o predeterminadas
+function executeSearch(query = '', startDate, endDate) {
+    const { startDate: selectedStartDate, endDate: selectedEndDate } = getSelectedDates();  // Obtener fechas predeterminadas si no hay valores
 
-    if (!query) {
-        alert('¡No has ingresado ningún valor!');
-        return;
-    }
+    // Usar fechas proporcionadas o las seleccionadas por defecto
+    startDate = startDate || selectedStartDate;
+    endDate = endDate || selectedEndDate;
 
-    // Hacer la solicitud al backend con la búsqueda y el rango de fechas
-    fetch(`/api/search?query=${encodeURIComponent(query)}&start=${encodeURIComponent(startDate)}&end=${encodeURIComponent(endDate)}`)
-        .then(response => response.json())
-        .then(vehicles => {
-            searchCards.style.display = 'block';
-            searchResults.innerHTML = ''; // Limpiar resultados anteriores
+// Construir la URL de búsqueda por fechas
+const url = `/api/search?start=${encodeURIComponent(startDate)}&end=${encodeURIComponent(endDate)}`;
+
+// Realizar la solicitud al backend
+fetch(url)
+    .then(response => response.json())
+    .then(vehicles => {
+        searchCards.style.display = 'block';
+        searchResults.innerHTML = '';  // Limpiar resultados anteriores
 
             if (vehicles.length === 0) {
                 searchResults.innerHTML = '<p>No se encontraron resultados.</p>';
@@ -310,83 +330,6 @@ function appendVehicleDetails(vehicle, card) {
     handleVehicleImages(vehicle, card);
 }
 
-
-
-//FUNCION BOTON MOSTRAR HISTORIAL
-let isHistoryActive = false; // Variable para indicar si el historial está activo
-
-// Función para manejar el botón 'Mostrar Historial'
-document.getElementById('historyButton').addEventListener('click', async () => {
-    isHistoryActive = true;   // Marcar el historial como activo
-    isSearchActive = false;   // Desmarcar la búsqueda como activa
-    const isAuthenticated = await checkAuthentication();
-    if (!isAuthenticated) return;  // Verificar autenticación
-
-    // Obtener la fecha actual
-    const today = new Date();
-    const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
-    const endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
-
-    // Convertir las fechas a formato ISO para la petición al backend (solo parte de fecha)
-    const start = startDate.toISOString().split('T')[0];  // 'YYYY-MM-DD'
-    const end = endDate.toISOString().split('T')[0];      // 'YYYY-MM-DD'
-
-    try {
-        // Realizar la solicitud al backend para obtener los eventos del día actual
-        const response = await fetch(`/api/history?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`, {
-            credentials: 'include'
-        });
-
-        if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
-
-        const vehicles = await response.json();
-        // Verificar si la respuesta es un arreglo antes de usar forEach
-        if (Array.isArray(vehicles)) {
-            const searchResults = document.getElementById('searchResults');
-            const searchCards = document.getElementById('searchCards');
-
-            searchCards.style.display = 'block';
-            searchResults.innerHTML = ''; // Limpiar los resultados previos
-
-            if (vehicles.length === 0) {
-                searchResults.innerHTML = '<p>No se encontraron resultados para hoy.</p>';
-            } else {
-                vehicles.forEach(vehicle => {
-                    const card = document.createElement('div');
-                    card.className = 'search-card';
-
-                    // Reutilizar la función que muestra los detalles del vehículo
-                    appendVehicleDetails(vehicle, card);
-
-                    // Añadir el botón de editar a cada tarjeta del historial
-                    const editButton = document.createElement('button');
-                    editButton.textContent = 'Editar';
-                    editButton.className = 'edit-button';  // Asignamos una clase
-                    editButton.addEventListener('click', async () => {
-                        const isAuthenticated = await checkAuthentication();  // Verificar autenticación antes de editar
-                        if (!isAuthenticated) return;
-
-                        openEditForm(vehicle);  // Llamar a la función de edición
-                    });
-
-                    card.appendChild(editButton);
-                    searchResults.appendChild(card);
-                });
-            }
-        } else {
-            console.error('La respuesta del servidor no es un arreglo:', vehicles);
-            alert('Error al obtener los eventos. Por favor, inténtalo nuevamente.');
-        }
-    } catch (error) {
-        console.error('Error al realizar la solicitud:', error);
-        alert('Error al obtener los eventos. Por favor, inténtalo nuevamente.');
-    }
-});
-
-//FIN FUNCION BOTON MOSTRAR HISTORIAL
-
 // Función para manejar las imágenes del vehículo
 function handleVehicleImages(vehicle, card) {
     if (vehicle.images && Array.isArray(vehicle.images)) {
@@ -408,30 +351,6 @@ function createImageElement(image) {
 }
 
 // ---- MODIFICAR FUNCIÓN DE IMÁGENES EN PANTALLA COMPLETA ----
-
-
-//FUNCION PANTALLA COMPLETA
-function handleVehicleImages(vehicle, card) {
-    if (vehicle.images && Array.isArray(vehicle.images)) {
-        const imageElements = vehicle.images.slice(0, 4); // Limitar a un máximo de 4 imágenes
-        imageElements.forEach((image, index) => {
-            const img = createImageElement(image);
-            img.addEventListener('click', () => showFullscreenImages(imageElements, index));
-            card.appendChild(img);
-        });
-    } else if (vehicle.images && typeof vehicle.images === 'string') {
-        try {
-            const imagesArray = JSON.parse(vehicle.images).slice(0, 4); // Limitar a 4 imágenes
-            imagesArray.forEach((image, index) => {
-                const img = createImageElement(image);
-                img.addEventListener('click', () => showFullscreenImages(imagesArray, index));
-                card.appendChild(img);
-            });
-        } catch (error) {
-            console.error('Error al parsear vehicle.images:', error);
-        }
-    }
-}
 let currentIndex = 0; // Índice actual de la imagen mostrada
 function showFullscreenImages(images, index = 0) {
     currentIndex = index;
@@ -526,6 +445,28 @@ function nextImage(images, imgElement) {
     imgElement.src = images[currentIndex];
 }
 
+//FUNCION PANTALLA COMPLETA
+    function handleVehicleImages(vehicle, card) {
+        if (vehicle.images && Array.isArray(vehicle.images)) {
+            const imageElements = vehicle.images.slice(0, 4); // Limitar a un máximo de 4 imágenes
+            imageElements.forEach((image, index) => {
+                const img = createImageElement(image);
+                img.addEventListener('click', () => showFullscreenImages(imageElements, index));
+                card.appendChild(img);
+            });
+        } else if (vehicle.images && typeof vehicle.images === 'string') {
+            try {
+                const imagesArray = JSON.parse(vehicle.images).slice(0, 4); // Limitar a 4 imágenes
+                imagesArray.forEach((image, index) => {
+                    const img = createImageElement(image);
+                    img.addEventListener('click', () => showFullscreenImages(imagesArray, index));
+                    card.appendChild(img);
+                });
+            } catch (error) {
+                console.error('Error al parsear vehicle.images:', error);
+            }
+        }
+    }
 
 // ---- FUNCIONALIDAD DE EDICIÓN ----
 // Variables globales para almacenar las imágenes seleccionadas y las imágenes existentes
@@ -705,80 +646,73 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Imágenes comprimidas y listas para enviar:', e.target.files);
     });
 
-// Enviar los cambios al backend al enviar el formulario
-document.getElementById('vehicleEditForm').addEventListener('submit', async (e) => {
-    e.preventDefault();  // Prevenir el comportamiento por defecto del formulario
-    const vehicleId = document.getElementById('vehicleId').value;  // Obtener el ID del vehículo
+    // Enviar los cambios al backend al enviar el formulario
+    document.getElementById('vehicleEditForm').addEventListener('submit', async (e) => {
+        e.preventDefault();  // Prevenir el comportamiento por defecto del formulario
+        const vehicleId = document.getElementById('vehicleId').value;  // Obtener el ID del vehículo
 
-    // Asegúrate de declarar formData aquí
-    const formData = new FormData();  // Crear un FormData para enviar los datos
-    formData.append('brand', document.getElementById('editBrand').value);
-    formData.append('model', document.getElementById('editModel').value);
-    formData.append('clave', document.getElementById('editClave').value);
-    formData.append('plate', document.getElementById('editPlate').value);
-    formData.append('color', document.getElementById('editColor').value);
-    formData.append('owner', document.getElementById('editOwner').value);
-    formData.append('stayNights', document.getElementById('editStayNights').value);
-    formData.append('habitacion', document.getElementById('editHabitacion').value);
-    formData.append('garage', document.getElementById('editGarage').value);
-    formData.append('observations', document.getElementById('editObservations').value);
+        const formData = new FormData();  // Crear un FormData para enviar los datos
+        formData.append('brand', document.getElementById('editBrand').value);
+        formData.append('model', document.getElementById('editModel').value);
+        formData.append('clave', document.getElementById('editClave').value);
+        formData.append('plate', document.getElementById('editPlate').value);
+        formData.append('color', document.getElementById('editColor').value);
+        formData.append('owner', document.getElementById('editOwner').value);
+        formData.append('stayNights', document.getElementById('editStayNights').value);
+        formData.append('habitacion', document.getElementById('editHabitacion').value);
+        formData.append('garage', document.getElementById('editGarage').value);
+        formData.append('observations', document.getElementById('editObservations').value);
 
-    // Añadir las imágenes que se mantienen (las que no fueron seleccionadas para reemplazo)
-    formData.append('existingImages', JSON.stringify(imagesToKeep));
+     // Añadir las imágenes que se mantienen (las que no fueron seleccionadas para reemplazo)
+     formData.append('existingImages', JSON.stringify(imagesToKeep));
 
-    // Verificar si se seleccionaron imágenes para reemplazo y se cargaron nuevas imágenes
-    const files = document.getElementById('editImage').files;
-    if (imagesToReplace.length > 0) {
-        if (files.length === imagesToReplace.length) {
-            // Añadir las nuevas imágenes al FormData
-            for (let i = 0; i < files.length; i++) {
-                formData.append('image', files[i]);
-            }
-        } else {
-            alert(`Has seleccionado ${imagesToReplace.length} imágenes para reemplazar, pero has cargado ${files.length} nuevas imágenes. Por favor, asegúrate de cargar el mismo número de imágenes.`);
-            return;
-        }
-    } else if (files.length > 0) {
-        // Si no se han seleccionado imágenes para reemplazo pero se suben imágenes, agregarlas si hay espacio
-        const currentImagesCount = imagesToKeep.length;  // Cantidad de imágenes existentes
-        const totalImages = currentImagesCount + files.length;  // Total de imágenes (existentes + nuevas)
+     // Verificar si se seleccionaron imágenes para reemplazo y se cargaron nuevas imágenes
+     const files = document.getElementById('editImage').files;
+     if (imagesToReplace.length > 0) {
+         if (files.length === imagesToReplace.length) {
+             // Añadir las nuevas imágenes al FormData
+             for (let i = 0; i < files.length; i++) {
+                 formData.append('image', files[i]);
+             }
+         } else {
+             alert(`Has seleccionado ${imagesToReplace.length} imágenes para reemplazar, pero has cargado ${files.length} nuevas imágenes. Por favor, asegúrate de cargar el mismo número de imágenes.`);
+             return;
+         }
+     } else if (files.length > 0) {
+         // Si no se han seleccionado imágenes para reemplazo pero se suben imágenes, agregarlas si hay espacio
+         const currentImagesCount = imagesToKeep.length;  // Cantidad de imágenes existentes
+         const totalImages = currentImagesCount + files.length;  // Total de imágenes (existentes + nuevas)
 
-        if (totalImages > maxImages) {
-            alert(`Ya tienes ${currentImagesCount} imágenes. Solo puedes subir ${maxImages - currentImagesCount} imágenes adicionales.`);
-            return;
-        }
+         if (totalImages > maxImages) {
+             alert(`Ya tienes ${currentImagesCount} imágenes. Solo puedes subir ${maxImages - currentImagesCount} imágenes adicionales.`);
+             return;
+         }
 
-        // Añadir las nuevas imágenes al FormData
-        for (let i = 0; i < files.length; i++) {
-            formData.append('image', files[i]);
-        }
-    }
+         // Añadir las nuevas imágenes al FormData
+         for (let i = 0; i < files.length; i++) {
+             formData.append('image', files[i]);
+         }
+     }
 
-    try {
-        const response = await fetch(`/api/vehicle/${vehicleId}`, {
-            method: 'PUT',
-            body: formData  // Aquí ahora formData está definido
-        });
+     try {
+         const response = await fetch(`/api/vehicle/${vehicleId}`, {
+             method: 'PUT',
+             body: formData
+         });
 
-        if (response.ok) {
-            alert('Vehículo actualizado con éxito');
-            closeEditForm(); // Cerrar el formulario después de la actualización
-
-            // Verificar si el historial o la búsqueda están activos
-            if (isHistoryActive) {
-                document.getElementById('historyButton').click();  // Refrescar los resultados del historial
-            } else if (isSearchActive) {
-                executeSearch();  // Refrescar la búsqueda para reflejar los cambios
-            }
-        } else {
-            alert('Error al actualizar el vehículo');
-        }
-    } catch (error) {
-        console.error('Error al realizar la solicitud:', error);
-    }
+         if (response.ok) {
+             alert('Vehículo actualizado con éxito');
+             closeEditForm(); // Cerrar el formulario después de la actualización
+             executeSearch();  // Refrescar la búsqueda para reflejar los cambios
+         } else {
+             alert('Error al actualizar el vehículo');
+         }
+     } catch (error) {
+         console.error('Error al realizar la solicitud:', error);
+     }
+ });
 });
-
 
 // Asignar la búsqueda al botón y refrescar automáticamente
 searchButton.addEventListener('click', executeSearch);
-});
+

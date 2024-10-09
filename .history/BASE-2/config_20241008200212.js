@@ -237,6 +237,7 @@ searchButton.addEventListener('click', async () => {
     const isAuthenticated = await checkAuthentication();  // Verificar si está autenticado antes de la búsqueda
     if (!isAuthenticated) return;  // Detener la ejecución si no está autenticado
 
+    executeSearch();
 });
 function executeSearch() {
     const query = searchInput.value.trim();
@@ -310,8 +311,7 @@ function appendVehicleDetails(vehicle, card) {
     handleVehicleImages(vehicle, card);
 }
 
-
-
+//FUNCION BOTON MOSTRAR HISTORIAL
 //FUNCION BOTON MOSTRAR HISTORIAL
 let isHistoryActive = false; // Variable para indicar si el historial está activo
 

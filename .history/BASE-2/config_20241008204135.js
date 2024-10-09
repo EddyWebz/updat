@@ -310,13 +310,22 @@ function appendVehicleDetails(vehicle, card) {
     handleVehicleImages(vehicle, card);
 }
 
-
-
 //FUNCION BOTON MOSTRAR HISTORIAL
+const historyButton = document.getElementById('historyButton');
 let isHistoryActive = false; // Variable para indicar si el historial está activo
 
 // Función para manejar el botón 'Mostrar Historial'
 document.getElementById('historyButton').addEventListener('click', async () => {
+    if (historyButton.textContent === 'Mostrar Historial') {
+        // Cambiar a 'Ocultar Historial' cuando el historial se muestra
+        historyButton.textContent = 'Ocultar Historial';
+        // Lógica para mostrar el historial (si la tienes ya implementada)
+    } else {
+        // Cambiar a 'Mostrar Historial' cuando el historial se oculta
+        historyButton.textContent = 'Mostrar Historial';
+        // Lógica para ocultar el historial (si la tienes ya implementada)
+    }
+    
     isHistoryActive = true;   // Marcar el historial como activo
     isSearchActive = false;   // Desmarcar la búsqueda como activa
     const isAuthenticated = await checkAuthentication();

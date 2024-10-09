@@ -341,8 +341,8 @@ header {
 /* Estilos para el contenedor de tarjetas de búsqueda */
 #searchResults {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta el número de columnas automáticamente */
-    grid-gap: 20px; /* Espaciado entre tarjetas */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Reducimos el minmax para hacer las tarjetas más grandes */
+    grid-gap: 15px; /* Espaciado entre tarjetas */
     margin-top: 20px;
     margin-bottom: 20px; /* Espaciado inferior para no cortar la última tarjeta */
     max-width: 100%; /* Asegurarse de que no se desborde */

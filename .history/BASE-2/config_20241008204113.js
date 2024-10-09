@@ -310,9 +310,8 @@ function appendVehicleDetails(vehicle, card) {
     handleVehicleImages(vehicle, card);
 }
 
-
-
 //FUNCION BOTON MOSTRAR HISTORIAL
+const historyButton = document.getElementById('historyButton');
 let isHistoryActive = false; // Variable para indicar si el historial está activo
 
 // Función para manejar el botón 'Mostrar Historial'

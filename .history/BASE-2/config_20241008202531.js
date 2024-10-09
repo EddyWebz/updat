@@ -237,6 +237,7 @@ searchButton.addEventListener('click', async () => {
     const isAuthenticated = await checkAuthentication();  // Verificar si está autenticado antes de la búsqueda
     if (!isAuthenticated) return;  // Detener la ejecución si no está autenticado
 
+    executeSearch();
 });
 function executeSearch() {
     const query = searchInput.value.trim();
@@ -310,8 +311,7 @@ function appendVehicleDetails(vehicle, card) {
     handleVehicleImages(vehicle, card);
 }
 
-
-
+//FUNCION BOTON MOSTRAR HISTORIAL
 //FUNCION BOTON MOSTRAR HISTORIAL
 let isHistoryActive = false; // Variable para indicar si el historial está activo
 
@@ -710,8 +710,8 @@ document.getElementById('vehicleEditForm').addEventListener('submit', async (e) 
     e.preventDefault();  // Prevenir el comportamiento por defecto del formulario
     const vehicleId = document.getElementById('vehicleId').value;  // Obtener el ID del vehículo
 
-    // Asegúrate de declarar formData aquí
-    const formData = new FormData();  // Crear un FormData para enviar los datos
+    // Crear un FormData para enviar los datos
+    const formData = new FormData();
     formData.append('brand', document.getElementById('editBrand').value);
     formData.append('model', document.getElementById('editModel').value);
     formData.append('clave', document.getElementById('editClave').value);
@@ -723,7 +723,7 @@ document.getElementById('vehicleEditForm').addEventListener('submit', async (e) 
     formData.append('garage', document.getElementById('editGarage').value);
     formData.append('observations', document.getElementById('editObservations').value);
 
-    // Añadir las imágenes que se mantienen (las que no fueron seleccionadas para reemplazo)
+    // Añadir las imágenes que se mantienen
     formData.append('existingImages', JSON.stringify(imagesToKeep));
 
     // Verificar si se seleccionaron imágenes para reemplazo y se cargaron nuevas imágenes
@@ -740,8 +740,8 @@ document.getElementById('vehicleEditForm').addEventListener('submit', async (e) 
         }
     } else if (files.length > 0) {
         // Si no se han seleccionado imágenes para reemplazo pero se suben imágenes, agregarlas si hay espacio
-        const currentImagesCount = imagesToKeep.length;  // Cantidad de imágenes existentes
-        const totalImages = currentImagesCount + files.length;  // Total de imágenes (existentes + nuevas)
+        const currentImagesCount = imagesToKeep.length;
+        const totalImages = currentImagesCount + files.length;
 
         if (totalImages > maxImages) {
             alert(`Ya tienes ${currentImagesCount} imágenes. Solo puedes subir ${maxImages - currentImagesCount} imágenes adicionales.`);
@@ -757,24 +757,39 @@ document.getElementById('vehicleEditForm').addEventListener('submit', async (e) 
     try {
         const response = await fetch(`/api/vehicle/${vehicleId}`, {
             method: 'PUT',
-            body: formData  // Aquí ahora formData está definido
+            body: formData  // Enviar el FormData con la solicitud PUT
         });
 
         if (response.ok) {
             alert('Vehículo actualizado con éxito');
-            closeEditForm(); // Cerrar el formulario después de la actualización
+            closeEditForm();  // Cerrar el formulario después de la actualización
 
             // Verificar si el historial o la búsqueda están activos
             if (isHistoryActive) {
                 document.getElementById('historyButton').click();  // Refrescar los resultados del historial
             } else if (isSearchActive) {
-                executeSearch();  // Refrescar la búsqueda para reflejar los cambios
+                // Verificar si el campo de búsqueda tiene un valor antes de ejecutar la búsqueda
+                if (searchInput.value.trim() !== "") {
+                    executeSearch();  // Ejecutar la búsqueda solo si el campo no está vacío
+                } else {
+                    alert('¡No has ingresado ningún valor!');  // Mostrar alerta si el campo está vacío
+                }
             }
         } else {
             alert('Error al actualizar el vehículo');
         }
     } catch (error) {
         console.error('Error al realizar la solicitud:', error);
+    }
+});
+
+// Asignar la búsqueda al botón y refrescar automáticamente
+searchButton.addEventListener('click', () => {
+    const query = searchInput.value.trim();
+    if (query !== "") {
+        executeSearch();  // Ejecutar búsqueda solo si el campo no está vacío
+    } else {
+        alert('¡No has ingresado ningún valor!');  // Mostrar alerta si el campo está vacío
     }
 });
 

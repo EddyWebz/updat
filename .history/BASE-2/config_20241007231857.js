@@ -232,11 +232,10 @@ function formatDate(dateString) {
 // ---- UNIFICACIÓN DEL SISTEMA DE BÚSQUEDA Y MOSTRAR DETALLES ----
 // Función que maneja la búsqueda y el refresco de la lista de vehículos
 searchButton.addEventListener('click', async () => {
-    isSearchActive = true;  // Marcar la búsqueda como activa
-    isHistoryActive = false;  // Desmarcar el historial como activo
     const isAuthenticated = await checkAuthentication();  // Verificar si está autenticado antes de la búsqueda
     if (!isAuthenticated) return;  // Detener la ejecución si no está autenticado
 
+    executeSearch();
 });
 function executeSearch() {
     const query = searchInput.value.trim();
@@ -310,15 +309,9 @@ function appendVehicleDetails(vehicle, card) {
     handleVehicleImages(vehicle, card);
 }
 
-
-
 //FUNCION BOTON MOSTRAR HISTORIAL
-let isHistoryActive = false; // Variable para indicar si el historial está activo
-
 // Función para manejar el botón 'Mostrar Historial'
 document.getElementById('historyButton').addEventListener('click', async () => {
-    isHistoryActive = true;   // Marcar el historial como activo
-    isSearchActive = false;   // Desmarcar la búsqueda como activa
     const isAuthenticated = await checkAuthentication();
     if (!isAuthenticated) return;  // Verificar autenticación
 
@@ -327,9 +320,9 @@ document.getElementById('historyButton').addEventListener('click', async () => {
     const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
     const endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
 
-    // Convertir las fechas a formato ISO para la petición al backend (solo parte de fecha)
-    const start = startDate.toISOString().split('T')[0];  // 'YYYY-MM-DD'
-    const end = endDate.toISOString().split('T')[0];      // 'YYYY-MM-DD'
+    // Convertir las fechas a formato ISO para la petición al backend
+    const start = startDate.toISOString();
+    const end = endDate.toISOString();
 
     try {
         // Realizar la solicitud al backend para obtener los eventos del día actual
@@ -337,13 +330,11 @@ document.getElementById('historyButton').addEventListener('click', async () => {
             credentials: 'include'
         });
 
-        if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
-
         const vehicles = await response.json();
+
         // Verificar si la respuesta es un arreglo antes de usar forEach
         if (Array.isArray(vehicles)) {
+            // Mostrar los resultados en la misma sección de búsqueda
             const searchResults = document.getElementById('searchResults');
             const searchCards = document.getElementById('searchCards');
 
@@ -360,18 +351,6 @@ document.getElementById('historyButton').addEventListener('click', async () => {
                     // Reutilizar la función que muestra los detalles del vehículo
                     appendVehicleDetails(vehicle, card);
 
-                    // Añadir el botón de editar a cada tarjeta del historial
-                    const editButton = document.createElement('button');
-                    editButton.textContent = 'Editar';
-                    editButton.className = 'edit-button';  // Asignamos una clase
-                    editButton.addEventListener('click', async () => {
-                        const isAuthenticated = await checkAuthentication();  // Verificar autenticación antes de editar
-                        if (!isAuthenticated) return;
-
-                        openEditForm(vehicle);  // Llamar a la función de edición
-                    });
-
-                    card.appendChild(editButton);
                     searchResults.appendChild(card);
                 });
             }
@@ -705,80 +684,73 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Imágenes comprimidas y listas para enviar:', e.target.files);
     });
 
-// Enviar los cambios al backend al enviar el formulario
-document.getElementById('vehicleEditForm').addEventListener('submit', async (e) => {
-    e.preventDefault();  // Prevenir el comportamiento por defecto del formulario
-    const vehicleId = document.getElementById('vehicleId').value;  // Obtener el ID del vehículo
+    // Enviar los cambios al backend al enviar el formulario
+    document.getElementById('vehicleEditForm').addEventListener('submit', async (e) => {
+        e.preventDefault();  // Prevenir el comportamiento por defecto del formulario
+        const vehicleId = document.getElementById('vehicleId').value;  // Obtener el ID del vehículo
 
-    // Asegúrate de declarar formData aquí
-    const formData = new FormData();  // Crear un FormData para enviar los datos
-    formData.append('brand', document.getElementById('editBrand').value);
-    formData.append('model', document.getElementById('editModel').value);
-    formData.append('clave', document.getElementById('editClave').value);
-    formData.append('plate', document.getElementById('editPlate').value);
-    formData.append('color', document.getElementById('editColor').value);
-    formData.append('owner', document.getElementById('editOwner').value);
-    formData.append('stayNights', document.getElementById('editStayNights').value);
-    formData.append('habitacion', document.getElementById('editHabitacion').value);
-    formData.append('garage', document.getElementById('editGarage').value);
-    formData.append('observations', document.getElementById('editObservations').value);
+        const formData = new FormData();  // Crear un FormData para enviar los datos
+        formData.append('brand', document.getElementById('editBrand').value);
+        formData.append('model', document.getElementById('editModel').value);
+        formData.append('clave', document.getElementById('editClave').value);
+        formData.append('plate', document.getElementById('editPlate').value);
+        formData.append('color', document.getElementById('editColor').value);
+        formData.append('owner', document.getElementById('editOwner').value);
+        formData.append('stayNights', document.getElementById('editStayNights').value);
+        formData.append('habitacion', document.getElementById('editHabitacion').value);
+        formData.append('garage', document.getElementById('editGarage').value);
+        formData.append('observations', document.getElementById('editObservations').value);
 
-    // Añadir las imágenes que se mantienen (las que no fueron seleccionadas para reemplazo)
-    formData.append('existingImages', JSON.stringify(imagesToKeep));
+     // Añadir las imágenes que se mantienen (las que no fueron seleccionadas para reemplazo)
+     formData.append('existingImages', JSON.stringify(imagesToKeep));
 
-    // Verificar si se seleccionaron imágenes para reemplazo y se cargaron nuevas imágenes
-    const files = document.getElementById('editImage').files;
-    if (imagesToReplace.length > 0) {
-        if (files.length === imagesToReplace.length) {
-            // Añadir las nuevas imágenes al FormData
-            for (let i = 0; i < files.length; i++) {
-                formData.append('image', files[i]);
-            }
-        } else {
-            alert(`Has seleccionado ${imagesToReplace.length} imágenes para reemplazar, pero has cargado ${files.length} nuevas imágenes. Por favor, asegúrate de cargar el mismo número de imágenes.`);
-            return;
-        }
-    } else if (files.length > 0) {
-        // Si no se han seleccionado imágenes para reemplazo pero se suben imágenes, agregarlas si hay espacio
-        const currentImagesCount = imagesToKeep.length;  // Cantidad de imágenes existentes
-        const totalImages = currentImagesCount + files.length;  // Total de imágenes (existentes + nuevas)
+     // Verificar si se seleccionaron imágenes para reemplazo y se cargaron nuevas imágenes
+     const files = document.getElementById('editImage').files;
+     if (imagesToReplace.length > 0) {
+         if (files.length === imagesToReplace.length) {
+             // Añadir las nuevas imágenes al FormData
+             for (let i = 0; i < files.length; i++) {
+                 formData.append('image', files[i]);
+             }
+         } else {
+             alert(`Has seleccionado ${imagesToReplace.length} imágenes para reemplazar, pero has cargado ${files.length} nuevas imágenes. Por favor, asegúrate de cargar el mismo número de imágenes.`);
+             return;
+         }
+     } else if (files.length > 0) {
+         // Si no se han seleccionado imágenes para reemplazo pero se suben imágenes, agregarlas si hay espacio
+         const currentImagesCount = imagesToKeep.length;  // Cantidad de imágenes existentes
+         const totalImages = currentImagesCount + files.length;  // Total de imágenes (existentes + nuevas)
 
-        if (totalImages > maxImages) {
-            alert(`Ya tienes ${currentImagesCount} imágenes. Solo puedes subir ${maxImages - currentImagesCount} imágenes adicionales.`);
-            return;
-        }
+         if (totalImages > maxImages) {
+             alert(`Ya tienes ${currentImagesCount} imágenes. Solo puedes subir ${maxImages - currentImagesCount} imágenes adicionales.`);
+             return;
+         }
 
-        // Añadir las nuevas imágenes al FormData
-        for (let i = 0; i < files.length; i++) {
-            formData.append('image', files[i]);
-        }
-    }
+         // Añadir las nuevas imágenes al FormData
+         for (let i = 0; i < files.length; i++) {
+             formData.append('image', files[i]);
+         }
+     }
 
-    try {
-        const response = await fetch(`/api/vehicle/${vehicleId}`, {
-            method: 'PUT',
-            body: formData  // Aquí ahora formData está definido
-        });
+     try {
+         const response = await fetch(`/api/vehicle/${vehicleId}`, {
+             method: 'PUT',
+             body: formData
+         });
 
-        if (response.ok) {
-            alert('Vehículo actualizado con éxito');
-            closeEditForm(); // Cerrar el formulario después de la actualización
-
-            // Verificar si el historial o la búsqueda están activos
-            if (isHistoryActive) {
-                document.getElementById('historyButton').click();  // Refrescar los resultados del historial
-            } else if (isSearchActive) {
-                executeSearch();  // Refrescar la búsqueda para reflejar los cambios
-            }
-        } else {
-            alert('Error al actualizar el vehículo');
-        }
-    } catch (error) {
-        console.error('Error al realizar la solicitud:', error);
-    }
+         if (response.ok) {
+             alert('Vehículo actualizado con éxito');
+             closeEditForm(); // Cerrar el formulario después de la actualización
+             executeSearch();  // Refrescar la búsqueda para reflejar los cambios
+         } else {
+             alert('Error al actualizar el vehículo');
+         }
+     } catch (error) {
+         console.error('Error al realizar la solicitud:', error);
+     }
+ });
 });
-
 
 // Asignar la búsqueda al botón y refrescar automáticamente
 searchButton.addEventListener('click', executeSearch);
-});
+

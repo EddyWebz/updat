@@ -237,6 +237,7 @@ searchButton.addEventListener('click', async () => {
     const isAuthenticated = await checkAuthentication();  // Verificar si está autenticado antes de la búsqueda
     if (!isAuthenticated) return;  // Detener la ejecución si no está autenticado
 
+    executeSearch();
 });
 function executeSearch() {
     const query = searchInput.value.trim();
@@ -310,8 +311,7 @@ function appendVehicleDetails(vehicle, card) {
     handleVehicleImages(vehicle, card);
 }
 
-
-
+//FUNCION BOTON MOSTRAR HISTORIAL
 //FUNCION BOTON MOSTRAR HISTORIAL
 let isHistoryActive = false; // Variable para indicar si el historial está activo
 
@@ -768,7 +768,9 @@ document.getElementById('vehicleEditForm').addEventListener('submit', async (e) 
             if (isHistoryActive) {
                 document.getElementById('historyButton').click();  // Refrescar los resultados del historial
             } else if (isSearchActive) {
-                executeSearch();  // Refrescar la búsqueda para reflejar los cambios
+                if (searchInput.value.trim() !== "") {  // Verificar si el campo de búsqueda tiene un valor
+                    executeSearch();  // Refrescar la búsqueda solo si el campo no está vacío
+                }
             }
         } else {
             alert('Error al actualizar el vehículo');

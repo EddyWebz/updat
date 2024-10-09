@@ -237,6 +237,7 @@ searchButton.addEventListener('click', async () => {
     const isAuthenticated = await checkAuthentication();  // Verificar si está autenticado antes de la búsqueda
     if (!isAuthenticated) return;  // Detener la ejecución si no está autenticado
 
+    executeSearch();
 });
 function executeSearch() {
     const query = searchInput.value.trim();
@@ -310,8 +311,6 @@ function appendVehicleDetails(vehicle, card) {
     handleVehicleImages(vehicle, card);
 }
 
-
-
 //FUNCION BOTON MOSTRAR HISTORIAL
 let isHistoryActive = false; // Variable para indicar si el historial está activo
 
@@ -342,6 +341,7 @@ document.getElementById('historyButton').addEventListener('click', async () => {
         }
 
         const vehicles = await response.json();
+
         // Verificar si la respuesta es un arreglo antes de usar forEach
         if (Array.isArray(vehicles)) {
             const searchResults = document.getElementById('searchResults');
@@ -369,9 +369,32 @@ document.getElementById('historyButton').addEventListener('click', async () => {
                         if (!isAuthenticated) return;
 
                         openEditForm(vehicle);  // Llamar a la función de edición
-                    });
 
+                        // Cuando se complete la actualización, refrescar los resultados del historial
+                        document.getElementById('vehicleEditForm').addEventListener('submit', async (e) => {
+                            e.preventDefault();
+                            // ... (lógica de actualización del vehículo) ...
+
+                            try {
+                                const response = await fetch(`/api/vehicle/${vehicle.id}`, {
+                                    method: 'PUT',
+                                    body: formData
+                                });
+
+                                if (response.ok) {
+                                    alert('Vehículo actualizado con éxito');
+                                    closeEditForm(); // Cerrar el formulario después de la actualización
+                                    document.getElementById('historyButton').click();  // Refrescar los resultados del historial
+                                } else {
+                                    alert('Error al actualizar el vehículo');
+                                }
+                            } catch (error) {
+                                console.error('Error al realizar la solicitud:', error);
+                            }
+                        });
+                    });
                     card.appendChild(editButton);
+
                     searchResults.appendChild(card);
                 });
             }
@@ -710,7 +733,6 @@ document.getElementById('vehicleEditForm').addEventListener('submit', async (e) 
     e.preventDefault();  // Prevenir el comportamiento por defecto del formulario
     const vehicleId = document.getElementById('vehicleId').value;  // Obtener el ID del vehículo
 
-    // Asegúrate de declarar formData aquí
     const formData = new FormData();  // Crear un FormData para enviar los datos
     formData.append('brand', document.getElementById('editBrand').value);
     formData.append('model', document.getElementById('editModel').value);
@@ -757,7 +779,7 @@ document.getElementById('vehicleEditForm').addEventListener('submit', async (e) 
     try {
         const response = await fetch(`/api/vehicle/${vehicleId}`, {
             method: 'PUT',
-            body: formData  // Aquí ahora formData está definido
+            body: formData
         });
 
         if (response.ok) {
@@ -777,7 +799,6 @@ document.getElementById('vehicleEditForm').addEventListener('submit', async (e) 
         console.error('Error al realizar la solicitud:', error);
     }
 });
-
 
 // Asignar la búsqueda al botón y refrescar automáticamente
 searchButton.addEventListener('click', executeSearch);

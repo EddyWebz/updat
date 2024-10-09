@@ -310,80 +310,76 @@ function appendVehicleDetails(vehicle, card) {
     handleVehicleImages(vehicle, card);
 }
 
-
-
 //FUNCION BOTON MOSTRAR HISTORIAL
-let isHistoryActive = false; // Variable para indicar si el historial está activo
+// Variable para controlar el estado de visibilidad del historial
+let isHistoryVisible = false; 
 
-// Función para manejar el botón 'Mostrar Historial'
-document.getElementById('historyButton').addEventListener('click', async () => {
+// Seleccionar el botón de historial
+const historyButton = document.getElementById('historyButton');
+
+// Función para manejar el botón 'Mostrar/Ocultar Historial'
+historyButton.addEventListener('click', async () => {
+    const searchResults = document.getElementById('searchResults');  // Donde se muestra el historial
     isHistoryActive = true;   // Marcar el historial como activo
     isSearchActive = false;   // Desmarcar la búsqueda como activa
-    const isAuthenticated = await checkAuthentication();
-    if (!isAuthenticated) return;  // Verificar autenticación
 
-    // Obtener la fecha actual
-    const today = new Date();
-    const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
-    const endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
+    if (isHistoryVisible) {
+        // Si el historial está visible, ocultarlo
+        searchResults.style.display = 'none';
+        historyButton.textContent = 'Mostrar Historial';  // Cambiar el texto del botón
+        isHistoryVisible = false;  // Marcar que el historial está oculto
+    } else {
+        // Si el historial no está visible, mostrarlo
+        const isAuthenticated = await checkAuthentication();  // Verificar autenticación
+        if (!isAuthenticated) return;  // Verificar autenticación
 
-    // Convertir las fechas a formato ISO para la petición al backend (solo parte de fecha)
-    const start = startDate.toISOString().split('T')[0];  // 'YYYY-MM-DD'
-    const end = endDate.toISOString().split('T')[0];      // 'YYYY-MM-DD'
+        const today = new Date();
+        const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
+        const endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
 
-    try {
-        // Realizar la solicitud al backend para obtener los eventos del día actual
-        const response = await fetch(`/api/history?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`, {
-            credentials: 'include'
-        });
+        const start = startDate.toISOString().split('T')[0];  // 'YYYY-MM-DD'
+        const end = endDate.toISOString().split('T')[0];      // 'YYYY-MM-DD'
 
-        if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
+        try {
+            const response = await fetch(`/api/history?start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`, {
+                credentials: 'include'
+            });
 
-        const vehicles = await response.json();
-        // Verificar si la respuesta es un arreglo antes de usar forEach
-        if (Array.isArray(vehicles)) {
-            const searchResults = document.getElementById('searchResults');
-            const searchCards = document.getElementById('searchCards');
-
-            searchCards.style.display = 'block';
-            searchResults.innerHTML = ''; // Limpiar los resultados previos
-
-            if (vehicles.length === 0) {
-                searchResults.innerHTML = '<p>No se encontraron resultados para hoy.</p>';
-            } else {
-                vehicles.forEach(vehicle => {
-                    const card = document.createElement('div');
-                    card.className = 'search-card';
-
-                    // Reutilizar la función que muestra los detalles del vehículo
-                    appendVehicleDetails(vehicle, card);
-
-                    // Añadir el botón de editar a cada tarjeta del historial
-                    const editButton = document.createElement('button');
-                    editButton.textContent = 'Editar';
-                    editButton.className = 'edit-button';  // Asignamos una clase
-                    editButton.addEventListener('click', async () => {
-                        const isAuthenticated = await checkAuthentication();  // Verificar autenticación antes de editar
-                        if (!isAuthenticated) return;
-
-                        openEditForm(vehicle);  // Llamar a la función de edición
-                    });
-
-                    card.appendChild(editButton);
-                    searchResults.appendChild(card);
-                });
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
             }
-        } else {
-            console.error('La respuesta del servidor no es un arreglo:', vehicles);
+
+            const vehicles = await response.json();
+
+            if (Array.isArray(vehicles)) {
+                searchResults.style.display = 'block';
+                searchResults.innerHTML = '';  // Limpiar los resultados anteriores
+
+                if (vehicles.length === 0) {
+                    searchResults.innerHTML = '<p>No se encontraron resultados para hoy.</p>';
+                } else {
+                    vehicles.forEach(vehicle => {
+                        const card = document.createElement('div');
+                        card.className = 'search-card';
+                        appendVehicleDetails(vehicle, card);  // Reutilizar función para mostrar los detalles
+                        searchResults.appendChild(card);
+                    });
+                }
+
+                // Cambiar el texto del botón a 'Ocultar Historial'
+                historyButton.textContent = 'Ocultar Historial';
+                isHistoryVisible = true;  // Marcar que el historial está visible
+            } else {
+                console.error('La respuesta del servidor no es un arreglo:', vehicles);
+                alert('Error al obtener los eventos. Por favor, inténtalo nuevamente.');
+            }
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
             alert('Error al obtener los eventos. Por favor, inténtalo nuevamente.');
         }
-    } catch (error) {
-        console.error('Error al realizar la solicitud:', error);
-        alert('Error al obtener los eventos. Por favor, inténtalo nuevamente.');
     }
 });
+
 
 //FIN FUNCION BOTON MOSTRAR HISTORIAL
 

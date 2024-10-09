@@ -51,14 +51,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     const searchButton = document.getElementById('searchButton');
     const searchResults = document.getElementById('searchResults');
     const searchCards = document.getElementById('searchCards');
-    const imageInput = document.getElementById('image'); // Campo de imágeneS
+    const imageInput = document.getElementById('image'); // Campo de imágenes
+    // ---- VARIABLES ----
+   
     const fullscreenBackground = document.createElement('div'); // Creamos el fondo oscuro
 fullscreenBackground.classList.add('fullscreen-background');
 document.body.appendChild(fullscreenBackground); // Añadimos el fondo oscuro al cuerpo del documento
+
 const botonhistor = document.getElementById('botonhistor');
 const historySection = document.getElementById('historySection');
 const registrationSection = document.getElementById('registration');
 let isHistoryVisible = false;
+
+botonhistor.addEventListener('click', function () {
+    if (isHistoryVisible) {
+        // Mostrar la sección de registro y ocultar el historial
+        historySection.style.display = 'none';
+        registrationSection.style.display = 'block';
+        botonhistor.textContent = 'Historial de Registros';
+    } else {
+        // Mostrar el historial y ocultar la sección de registro
+        historySection.style.display = 'block';
+        registrationSection.style.display = 'none';
+        botonhistor.textContent = 'Ocultar Historial';
+    }
+    isHistoryVisible = !isHistoryVisible;
+    if (window.innerWidth < 972) {
+        dropdownContent.classList.remove('show');
+        dropdownContent.classList.add('hide');
+    }
+});
+    // Capturar los elementos del DOM para las fechas de inicio y fin
+const startDateInput = document.getElementById('startDate');  // Corregido: usar 'startDate'
+const endDateInput = document.getElementById('endDate');      // Corregido: usar 'endDate'
+// Mostrar/ocultar el campo personalizado de fecha según la opción seleccionada
+const dateOption = document.getElementById('dateOption');
+const customDate = document.getElementById('customDate');
+
 
 
 // Función para guardar los datos del formulario con un timestamp
@@ -256,7 +285,7 @@ const translations = {
     }
 
 
-//FUNCION NUEVA EMPIEZA
+//FUNCION NUEVA 
 let clickTimeout = false; // Variable para controlar el tiempo de espera
 let lastSubmissionTime = 0; // Almacenar el tiempo del último envío
 
@@ -360,53 +389,146 @@ function showNotification(message, type) {
         notification.remove();
     }, 3000);
 }
-//FUNCION NUEVA TERMINA
 
-//SECCION HISTORIAL EMPIEZA
-botonhistor.addEventListener('click', function () {
-    if (isHistoryVisible) {
-        // Mostrar la sección de registro y ocultar el historial
-        historySection.style.display = 'none';
-        registrationSection.style.display = 'block';
-        botonhistor.textContent = 'Historial de Registros';
-    } else {
-        // Mostrar el historial y ocultar la sección de registro
-        historySection.style.display = 'block';
-        registrationSection.style.display = 'none';
-        botonhistor.textContent = 'Ocultar Historial';
-    }
-    isHistoryVisible = !isHistoryVisible;
-    if (window.innerWidth < 972) {
-        dropdownContent.classList.remove('show');
-        dropdownContent.classList.add('hide');
-    }
-});
 
-   // ---- FUNCIONES PARA MANEJAR EL HISTORIAL ----
-   toggleHistoryBtn.addEventListener('click', async () => {
-    const isAuthenticated = await checkAuthentication();
-    if (!isAuthenticated) return;  // Redirige si no está autenticado
-    if (historyContent.style.display === 'none') {
-        resetSearch(); // Resetear la búsqueda cuando se muestre el historial
-        historyContent.style.display = 'block'; // Mostrar el historial
-        loadHistory();
-    } else {
-        historyContent.style.display = 'none';
-        resetHistory(); // Ocultar el historial si ya está visible
-    }
-});
 
+//FUNCION NUEVA
+
+
+
+
+
+  
+    // ---- FUNCIONES DE MANEJO DE IMÁGENES ----
+    function createImageElement(image) {
+        const img = document.createElement('img');
+        img.src = image;
+        img.alt = 'Imagen del vehículo';
+        img.loading = 'lazy';  // Habilitar lazy loading para optimizar la carga
+        //img.addEventListener('click', () => showFullscreenImage(image));
+        return img;
+    }
+
+
+// ---- MODIFICAR FUNCIÓN DE IMÁGENES EN PANTALLA COMPLETA ----
+let currentIndex = 0; // Índice actual de la imagen mostrada
+function showFullscreenImages(images, index = 0) {
+    currentIndex = index;
+    const fullscreenContainer = document.createElement('div');
+    fullscreenContainer.className = 'fullscreen-container';
+
+    const fullscreenImg = document.createElement('img');
+    fullscreenImg.src = images[currentIndex];
+    fullscreenImg.className = 'fullscreen-img';
+
+    // Botón para cerrar la imagen
+    fullscreenImg.addEventListener('click', () => {
+        document.body.removeChild(fullscreenContainer);
+    });
+
+    fullscreenContainer.appendChild(fullscreenImg);
+    document.body.appendChild(fullscreenContainer);
+
+    // ---- Crear los puntos de navegación UNA SOLA VEZ ----
+     if (images.length > 1) {  // SOLO SI HAY MÁS DE DOS IMÁGENES
+    const dotsContainer = document.createElement('div');
+    dotsContainer.className = 'dots-container';
+
+    images.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        if (i === currentIndex) {
+            dot.classList.add('active'); // Punto activo al inicio
+        }
+        dot.addEventListener('click', () => {
+            currentIndex = i;
+            fullscreenImg.src = images[currentIndex];
+            updateDots(dotsContainer); // Actualizar los puntos
+        });
+        dotsContainer.appendChild(dot);
+    });
+
+    fullscreenContainer.appendChild(dotsContainer); // Añadir los puntos de navegación al contenedor
+
+    // Solo permitir swipe y scroll si hay más de una imagen
+    if (images.length > 1) {
+        let startX = 0;
+        fullscreenImg.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX; // Capturar la posición inicial del toque
+        });
+
+        fullscreenImg.addEventListener('touchmove', (e) => {
+            const touchX = e.touches[0].clientX;
+            const deltaX = touchX - startX;
+
+            // Si el deslizamiento es mayor a un umbral, cambiar la imagen
+            if (deltaX > 50) {
+                prevImage(images, fullscreenImg);
+                updateDots(dotsContainer); // Actualizar los puntos de navegación
+                startX = touchX; // Actualizar la posición de inicio
+            } else if (deltaX < -50) {
+                nextImage(images, fullscreenImg);
+                updateDots(dotsContainer); // Actualizar los puntos de navegación
+                startX = touchX; // Actualizar la posición de inicio
+            }
+        });
+
+        fullscreenImg.addEventListener('wheel', (e) => {
+            if (e.deltaY < 0) {
+                prevImage(images, fullscreenImg); // Hacia arriba, imagen anterior
+                updateDots(dotsContainer); // Actualizar los puntos de navegación
+            } else {
+                nextImage(images, fullscreenImg); // Hacia abajo, imagen siguiente
+                updateDots(dotsContainer); // Actualizar los puntos de navegación
+            }
+        });
+      }
+    }
+
+    // ---- Función para actualizar los puntos de navegación ----
+    function updateDots(container) {
+        Array.from(container.children).forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex); // Activar/desactivar punto
+        });
+    }
+}
+
+// Función para mostrar la imagen anterior
+function prevImage(images, imgElement) {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    imgElement.src = images[currentIndex];
+}
+
+// Función para mostrar la imagen siguiente
+function nextImage(images, imgElement) {
+    currentIndex = (currentIndex + 1) % images.length;
+    imgElement.src = images[currentIndex];
+}
+
+//FUNCION PANTALLA COMPLETA
+    function handleVehicleImages(vehicle, card) {
+        if (vehicle.images && Array.isArray(vehicle.images)) {
+            const imageElements = vehicle.images.slice(0, 4); // Limitar a un máximo de 4 imágenes
+            imageElements.forEach((image, index) => {
+                const img = createImageElement(image);
+                img.addEventListener('click', () => showFullscreenImages(imageElements, index));
+                card.appendChild(img);
+            });
+        } else if (vehicle.images && typeof vehicle.images === 'string') {
+            try {
+                const imagesArray = JSON.parse(vehicle.images).slice(0, 4); // Limitar a 4 imágenes
+                imagesArray.forEach((image, index) => {
+                    const img = createImageElement(image);
+                    img.addEventListener('click', () => showFullscreenImages(imagesArray, index));
+                    card.appendChild(img);
+                });
+            } catch (error) {
+                console.error('Error al parsear vehicle.images:', error);
+            }
+        }
+    }
 
     //CAMPO DE FECHA PERZONALIZADA
-
-    
-    // Capturar los elementos del DOM para las fechas de inicio y fin
-const startDateInput = document.getElementById('startDate');  // Corregido: usar 'startDate'
-const endDateInput = document.getElementById('endDate');      // Corregido: usar 'endDate'
-// Mostrar/ocultar el campo personalizado de fecha según la opción seleccionada
-const dateOption = document.getElementById('dateOption');
-const customDate = document.getElementById('customDate');
-
     dateOption.addEventListener('change', () => {
         if (dateOption.value === 'manual') {
             customDate.style.display = 'block';  // Mostrar los campos personalizados
@@ -580,140 +702,25 @@ function resetSearch() {
     searchCards.style.display = 'none'; // Ocultar los resultados de búsqueda
 }
 
-//SECCION MANEJO DE IMAGEN 
 
-  
-    // ---- FUNCIONES DE MANEJO DE IMÁGENES ----
-    function createImageElement(image) {
-        const img = document.createElement('img');
-        img.src = image;
-        img.alt = 'Imagen del vehículo';
-        img.loading = 'lazy';  // Habilitar lazy loading para optimizar la carga
-        //img.addEventListener('click', () => showFullscreenImage(image));
-        return img;
-    }
-
-    //FUNCION PANTALLA COMPLETA
-    function handleVehicleImages(vehicle, card) {
-        if (vehicle.images && Array.isArray(vehicle.images)) {
-            const imageElements = vehicle.images.slice(0, 4); // Limitar a un máximo de 4 imágenes
-            imageElements.forEach((image, index) => {
-                const img = createImageElement(image);
-                img.addEventListener('click', () => showFullscreenImages(imageElements, index));
-                card.appendChild(img);
-            });
-        } else if (vehicle.images && typeof vehicle.images === 'string') {
-            try {
-                const imagesArray = JSON.parse(vehicle.images).slice(0, 4); // Limitar a 4 imágenes
-                imagesArray.forEach((image, index) => {
-                    const img = createImageElement(image);
-                    img.addEventListener('click', () => showFullscreenImages(imagesArray, index));
-                    card.appendChild(img);
-                });
-            } catch (error) {
-                console.error('Error al parsear vehicle.images:', error);
-            }
-        }
-    }
-
-// ---- MODIFICAR FUNCIÓN DE IMÁGENES EN PANTALLA COMPLETA ----
-let currentIndex = 0; // Índice actual de la imagen mostrada
-function showFullscreenImages(images, index = 0) {
-    currentIndex = index;
-    const fullscreenContainer = document.createElement('div');
-    fullscreenContainer.className = 'fullscreen-container';
-
-    const fullscreenImg = document.createElement('img');
-    fullscreenImg.src = images[currentIndex];
-    fullscreenImg.className = 'fullscreen-img';
-
-    // Botón para cerrar la imagen
-    fullscreenImg.addEventListener('click', () => {
-        document.body.removeChild(fullscreenContainer);
-    });
-
-    fullscreenContainer.appendChild(fullscreenImg);
-    document.body.appendChild(fullscreenContainer);
-
-    // ---- Crear los puntos de navegación UNA SOLA VEZ ----
-     if (images.length > 1) {  // SOLO SI HAY MÁS DE DOS IMÁGENES
-    const dotsContainer = document.createElement('div');
-    dotsContainer.className = 'dots-container';
-
-    images.forEach((_, i) => {
-        const dot = document.createElement('div');
-        dot.className = 'dot';
-        if (i === currentIndex) {
-            dot.classList.add('active'); // Punto activo al inicio
-        }
-        dot.addEventListener('click', () => {
-            currentIndex = i;
-            fullscreenImg.src = images[currentIndex];
-            updateDots(dotsContainer); // Actualizar los puntos
-        });
-        dotsContainer.appendChild(dot);
-    });
-
-    fullscreenContainer.appendChild(dotsContainer); // Añadir los puntos de navegación al contenedor
-
-    // Solo permitir swipe y scroll si hay más de una imagen
-    if (images.length > 1) {
-        let startX = 0;
-        fullscreenImg.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX; // Capturar la posición inicial del toque
-        });
-
-        fullscreenImg.addEventListener('touchmove', (e) => {
-            const touchX = e.touches[0].clientX;
-            const deltaX = touchX - startX;
-
-            // Si el deslizamiento es mayor a un umbral, cambiar la imagen
-            if (deltaX > 50) {
-                prevImage(images, fullscreenImg);
-                updateDots(dotsContainer); // Actualizar los puntos de navegación
-                startX = touchX; // Actualizar la posición de inicio
-            } else if (deltaX < -50) {
-                nextImage(images, fullscreenImg);
-                updateDots(dotsContainer); // Actualizar los puntos de navegación
-                startX = touchX; // Actualizar la posición de inicio
-            }
-        });
-
-        fullscreenImg.addEventListener('wheel', (e) => {
-            if (e.deltaY < 0) {
-                prevImage(images, fullscreenImg); // Hacia arriba, imagen anterior
-                updateDots(dotsContainer); // Actualizar los puntos de navegación
-            } else {
-                nextImage(images, fullscreenImg); // Hacia abajo, imagen siguiente
-                updateDots(dotsContainer); // Actualizar los puntos de navegación
-            }
-        });
-      }
-    }
-
-    // ---- Función para actualizar los puntos de navegación ----
-    function updateDots(container) {
-        Array.from(container.children).forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentIndex); // Activar/desactivar punto
-        });
-    }
-}
-
-// Función para mostrar la imagen anterior
-function prevImage(images, imgElement) {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    imgElement.src = images[currentIndex];
-}
-
-// Función para mostrar la imagen siguiente
-function nextImage(images, imgElement) {
-    currentIndex = (currentIndex + 1) % images.length;
-    imgElement.src = images[currentIndex];
-}
 
 
 
 //CODIGO SECUNDARIO  
+
+    // ---- FUNCIONES PARA MANEJAR EL HISTORIAL ----
+    toggleHistoryBtn.addEventListener('click', async () => {
+        const isAuthenticated = await checkAuthentication();
+        if (!isAuthenticated) return;  // Redirige si no está autenticado
+        if (historyContent.style.display === 'none') {
+            resetSearch(); // Resetear la búsqueda cuando se muestre el historial
+            historyContent.style.display = 'block'; // Mostrar el historial
+            loadHistory();
+        } else {
+            historyContent.style.display = 'none';
+            resetHistory(); // Ocultar el historial si ya está visible
+        }
+    });
 
     // ---- FUNCIONES DE INTERACCIÓN MENU  ----
     const menuIcon = document.querySelector('.menu-icon');

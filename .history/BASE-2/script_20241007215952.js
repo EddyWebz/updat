@@ -51,14 +51,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     const searchButton = document.getElementById('searchButton');
     const searchResults = document.getElementById('searchResults');
     const searchCards = document.getElementById('searchCards');
-    const imageInput = document.getElementById('image'); // Campo de imágeneS
+    const imageInput = document.getElementById('image'); // Campo de imágenes
+    // ---- VARIABLES ----
+   
     const fullscreenBackground = document.createElement('div'); // Creamos el fondo oscuro
 fullscreenBackground.classList.add('fullscreen-background');
 document.body.appendChild(fullscreenBackground); // Añadimos el fondo oscuro al cuerpo del documento
+
 const botonhistor = document.getElementById('botonhistor');
 const historySection = document.getElementById('historySection');
 const registrationSection = document.getElementById('registration');
 let isHistoryVisible = false;
+
+botonhistor.addEventListener('click', function () {
+    if (isHistoryVisible) {
+        // Mostrar la sección de registro y ocultar el historial
+        historySection.style.display = 'none';
+        registrationSection.style.display = 'block';
+        botonhistor.textContent = 'Historial de Registros';
+    } else {
+        // Mostrar el historial y ocultar la sección de registro
+        historySection.style.display = 'block';
+        registrationSection.style.display = 'none';
+        botonhistor.textContent = 'Ocultar Historial';
+    }
+    isHistoryVisible = !isHistoryVisible;
+    if (window.innerWidth < 972) {
+        dropdownContent.classList.remove('show');
+        dropdownContent.classList.add('hide');
+    }
+});
+    // Capturar los elementos del DOM para las fechas de inicio y fin
+const startDateInput = document.getElementById('startDate');  // Corregido: usar 'startDate'
+const endDateInput = document.getElementById('endDate');      // Corregido: usar 'endDate'
+// Mostrar/ocultar el campo personalizado de fecha según la opción seleccionada
+const dateOption = document.getElementById('dateOption');
+const customDate = document.getElementById('customDate');
+
 
 
 // Función para guardar los datos del formulario con un timestamp
@@ -256,7 +285,7 @@ const translations = {
     }
 
 
-//FUNCION NUEVA EMPIEZA
+//FUNCION NUEVA 
 let clickTimeout = false; // Variable para controlar el tiempo de espera
 let lastSubmissionTime = 0; // Almacenar el tiempo del último envío
 
@@ -360,27 +389,13 @@ function showNotification(message, type) {
         notification.remove();
     }, 3000);
 }
-//FUNCION NUEVA TERMINA
 
-//SECCION HISTORIAL EMPIEZA
-botonhistor.addEventListener('click', function () {
-    if (isHistoryVisible) {
-        // Mostrar la sección de registro y ocultar el historial
-        historySection.style.display = 'none';
-        registrationSection.style.display = 'block';
-        botonhistor.textContent = 'Historial de Registros';
-    } else {
-        // Mostrar el historial y ocultar la sección de registro
-        historySection.style.display = 'block';
-        registrationSection.style.display = 'none';
-        botonhistor.textContent = 'Ocultar Historial';
-    }
-    isHistoryVisible = !isHistoryVisible;
-    if (window.innerWidth < 972) {
-        dropdownContent.classList.remove('show');
-        dropdownContent.classList.add('hide');
-    }
-});
+
+
+//FUNCION NUEVA
+
+
+
 
    // ---- FUNCIONES PARA MANEJAR EL HISTORIAL ----
    toggleHistoryBtn.addEventListener('click', async () => {
@@ -398,15 +413,6 @@ botonhistor.addEventListener('click', function () {
 
 
     //CAMPO DE FECHA PERZONALIZADA
-
-    
-    // Capturar los elementos del DOM para las fechas de inicio y fin
-const startDateInput = document.getElementById('startDate');  // Corregido: usar 'startDate'
-const endDateInput = document.getElementById('endDate');      // Corregido: usar 'endDate'
-// Mostrar/ocultar el campo personalizado de fecha según la opción seleccionada
-const dateOption = document.getElementById('dateOption');
-const customDate = document.getElementById('customDate');
-
     dateOption.addEventListener('change', () => {
         if (dateOption.value === 'manual') {
             customDate.style.display = 'block';  // Mostrar los campos personalizados

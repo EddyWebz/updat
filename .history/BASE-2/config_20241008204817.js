@@ -310,8 +310,6 @@ function appendVehicleDetails(vehicle, card) {
     handleVehicleImages(vehicle, card);
 }
 
-
-
 //FUNCION BOTON MOSTRAR HISTORIAL
 let isHistoryActive = false; // Variable para indicar si el historial está activo
 

@@ -310,6 +310,45 @@ function appendVehicleDetails(vehicle, card) {
     handleVehicleImages(vehicle, card);
 }
 
+// Seleccionar los botones y las secciones de búsqueda e historial
+const historyButton = document.getElementById('historyButton');
+const historyResults = document.getElementById('historyResults');  // Donde se muestran los resultados del historial
+
+// Función para manejar el botón 'Búsqueda'
+searchButton.addEventListener('click', () => {
+    isSearchActive = true;
+    isHistoryActive = false;
+
+    // Mostrar resultados de búsqueda y ocultar historial
+    searchResults.style.display = 'block';  // Mostrar la búsqueda
+    historyResults.style.display = 'none';  // Ocultar el historial
+    historyButton.textContent = 'Mostrar Historial';  // Asegurarse de que el texto esté correcto
+
+    // Aquí ejecutarías la función de búsqueda
+    executeSearch();  // Ejecutar búsqueda (asegúrate de verificar que no esté duplicada)
+});
+
+// Función para manejar el botón 'Mostrar/Ocultar Historial'
+historyButton.addEventListener('click', () => {
+    if (historyButton.textContent === 'Mostrar Historial') {
+        isHistoryActive = true;
+        isSearchActive = false;
+
+        // Mostrar resultados de historial y ocultar búsqueda
+        historyResults.style.display = 'block';  // Mostrar el historial
+        searchResults.style.display = 'none';    // Ocultar la búsqueda
+        searchButton.textContent = 'Mostrar Búsqueda';  // Asegurarse de que el texto esté correcto
+
+        historyButton.textContent = 'Ocultar Historial';  // Cambiar el texto del botón a 'Ocultar Historial'
+
+        // Aquí podrías ejecutar la función para cargar el historial
+    } else {
+        // Ocultar el historial
+        historyResults.style.display = 'none';
+        historyButton.textContent = 'Mostrar Historial';  // Cambiar el texto del botón a 'Mostrar Historial'
+    }
+});
+
 
 
 //FUNCION BOTON MOSTRAR HISTORIAL

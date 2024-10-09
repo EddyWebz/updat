@@ -344,11 +344,11 @@ header {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta el número de columnas automáticamente */
     grid-gap: 20px; /* Espaciado entre tarjetas */
     margin-top: 20px;
+    padding: 0 20px; /* Padding en ambos lados para que no se desborde */
     margin-bottom: 20px; /* Espaciado inferior para no cortar la última tarjeta */
     max-width: 100%; /* Asegurarse de que no se desborde */
     box-sizing: border-box; /* Incluir padding en el cálculo del ancho total */
 }
-
 
 
 /* Estilos de las tarjetas individuales de búsqueda */

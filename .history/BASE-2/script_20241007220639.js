@@ -362,7 +362,7 @@ function showNotification(message, type) {
 }
 //FUNCION NUEVA TERMINA
 
-//SECCION HISTORIAL EMPIEZA
+//SECCION HSITORIAL EMPIEZA
 botonhistor.addEventListener('click', function () {
     if (isHistoryVisible) {
         // Mostrar la sección de registro y ocultar el historial

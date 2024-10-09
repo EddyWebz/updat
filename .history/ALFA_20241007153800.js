@@ -169,7 +169,6 @@ router.get('/search', verifyJWT, async (req, res) => {
 
 
 // Ruta para obtener datos de un vehículo por placa filtrado por user_id
-// Ruta para obtener datos de un vehículo por placa filtrado por user_id
 router.get('/vehicle/:plate', verifyJWT, async (req, res) => {
     const user_id = req.userId;
     const plate = req.params.plate;
@@ -179,7 +178,7 @@ router.get('/vehicle/:plate', verifyJWT, async (req, res) => {
         const [results] = await connection.query('SELECT * FROM vehiculos WHERE plate = ? AND user_id = ?', [plate, user_id]);
 
         if (results.length > 0) {
-            // No sumar horas aquí, devolver la fecha/hora tal cual
+            results[0].datetime = new Date(new Date(results[0].datetime).getTime() + 60 * 60 * 1000);
             console.log('Vehículo encontrado:', results[0]);
             res.json(results[0]);
         } else {
@@ -191,6 +190,5 @@ router.get('/vehicle/:plate', verifyJWT, async (req, res) => {
         res.status(500).json({ success: false, message: 'Error en el servidor' });
     }
 });
-
 
 module.exports = router;
