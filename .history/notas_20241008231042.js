@@ -170,8 +170,7 @@ router.get('/reportes', verifyJWT, async (req, res) => {
         };
 
         reportes.forEach(registro => {
-            const horaIngresoLocal = convertirUTCaLocal(registro.datetime);  // Convertir a la hora local
-            const horaSalidaEstimada = calcularHoraSalida(horaIngresoLocal, registro.stayNights);
+            const horaSalidaEstimada = calcularHoraSalida(registro.datetime, registro.stayNights);
 
             if (new Date() < horaSalidaEstimada) {
                 if (registro.garage === 'P1') {
@@ -179,19 +178,18 @@ router.get('/reportes', verifyJWT, async (req, res) => {
                         habitacion: registro.habitacion,
                         plate: registro.plate,
                         id: registro.id,
-                        comentario: registro.comentario
+                        comentario: registro.comentario  
                     });
                 } else if (registro.garage === 'P2') {
                     data.P2.push({
                         habitacion: registro.habitacion,
                         plate: registro.plate,
                         id: registro.id,
-                        comentario: registro.comentario
+                        comentario: registro.comentario  
                     });
                 }
             }
         });
-
 
         res.json(data);
     } catch (error) {
